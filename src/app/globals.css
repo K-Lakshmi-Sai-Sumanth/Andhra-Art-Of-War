@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Telugu:wght@400;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #FAF8F5;
+  --foreground: #1C1917;
+  --font-cinzel: 'Cinzel', serif;
+  --font-telugu: 'Noto Sans Telugu', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  background-color: #FAF8F5;
+  color: #1C1917;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.08), transparent 45%),
+    radial-gradient(circle at 90% 20%, rgba(220, 38, 38, 0.06), transparent 40%),
+    radial-gradient(circle at 10% 60%, rgba(217, 119, 6, 0.05), transparent 40%),
+    linear-gradient(to bottom, #FAF8F5, #F5F1E8, #FAF8F5);
+  background-attachment: fixed;
+}
+
+.font-serif {
+  font-family: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-telugu {
+  font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
+}
+
+/* Custom scrollbar in Sandstone Gold & Vermilion */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F1E8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D97706;
+  border-radius: 4px;
+  border: 1px solid #FAF8F5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B45309;
+}
+
+/* Glassmorphism clean light sandstone/ivory panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 119, 6, 0.20);
+  box-shadow: 0 10px 30px -5px rgba(41, 37, 36, 0.06);
+}
+
+.glass-panel:hover {
+  border-color: rgba(217, 119, 6, 0.45);
+  box-shadow: 0 14px 35px -5px rgba(217, 119, 6, 0.12);
+}
+
+.glass-panel-glow {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  box-shadow: 0 12px 40px -10px rgba(220, 38, 38, 0.15);
+}
+
+/* Glow effects */
+.glow-crimson {
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.25);
+}
+
+.glow-gold {
+  box-shadow: 0 0 30px rgba(217, 119, 6, 0.25);
+}
+
+/* Shimmer & animations */
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3.5s ease-in-out infinite;
+}

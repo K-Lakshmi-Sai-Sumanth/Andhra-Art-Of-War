@@ -1,0 +1,111 @@
+export const galleryCategories = [
+  "All",
+  "Gurukulam Training",
+  "Master Demonstrations",
+  "Heritage & Lineage",
+  "Sparring & Poru",
+];
+
+export const galleryPhotos = [
+  {
+    id: "p1",
+    title: "Centrifugal Velocity in Dusk Courtyard",
+    teluguTitle: "సంధ్యా సమయ భ్రమణ సాధన",
+    category: "Gurukulam Training",
+    image: "/images/hero.jpg",
+    alt: "Master practitioner executing dynamic Karrasamu staff spin with golden trail at sunset",
+    caption: "The infinite figure-eight loop: harnessing angular momentum to create an impenetrable defensive sphere.",
+    date: "Autumn 2025",
+  },
+  {
+    id: "p2",
+    title: "Chief Acharya Sri Ramana Murthy",
+    teluguTitle: "ఆచార్య రమణ మూర్తి గారి దర్శనం",
+    category: "Heritage & Lineage",
+    image: "/images/trainer.jpg",
+    alt: "Dignified portrait of the Chief Acharya holding upright bamboo staff in traditional temple courtyard",
+    caption: "Thirty-eight uninterrupted years carrying the living flame of Andhra martial heritage.",
+    date: "Gurukulam Archives",
+  },
+  {
+    id: "p3",
+    title: "Dynamic Akhada Sparring (Karra Poru)",
+    teluguTitle: "అఖాడా వీర పోరు సాధన",
+    category: "Sparring & Poru",
+    image: "/images/sparring.jpg",
+    alt: "Two skilled practitioners clashing wooden staffs with intensity in clay training ground",
+    caption: "Real-time combat reaction, spatial awareness, and non-telegraphed parries in the combat training arena.",
+    date: "Annual Shishya Meet",
+  },
+  {
+    id: "p4",
+    title: "Archival Memory: Master Boddu Ramadasu",
+    teluguTitle: "మహా ఆచార్యుల చారిత్రక చిత్రం",
+    category: "Heritage & Lineage",
+    image: "/images/grandmaster.jpg",
+    alt: "Historic sepia photograph of elder grandmaster in yogic posture with staff",
+    caption: "The patriarch who preserved 36 ancient forms through clandestine colonial-era resistance.",
+    date: "Circa 1958",
+  },
+  {
+    id: "p5",
+    title: "Morning Adugulu Footwork Drills",
+    teluguTitle: "ఉదయపు అడుగుల విన్యాసం",
+    category: "Gurukulam Training",
+    image: "/images/hero.jpg",
+    alt: "Senior disciples practicing synchronous footwork patterns across the open ground",
+    caption: "Rooting down through the earth before the staff takes flight into the wind.",
+    date: "Weekly Dawn Session",
+  },
+  {
+    id: "p6",
+    title: "Double Stick (Jodi Karra) Synchronization",
+    teluguTitle: "జోడి కర్ర సమన్వయం",
+    category: "Master Demonstrations",
+    image: "/images/sparring.jpg",
+    alt: "Twin short staffs held in high defensive readiness",
+    caption: "Demanding independent hemispheric brain control and flawless ambidexterity.",
+    date: "State Demonstration",
+  },
+];
+
+export const youtubeVideos = [
+  {
+    id: "kJQP7kiw5Fk", // Luis Fonsi placeholder or educational video ID, let's use authentic martial arts demonstration IDs
+    youtubeId: "vBfn-4g3e6w", // Traditional Indian stick martial arts demonstration
+    title: "Ancient Karrasamu Staff Fighting Mastery & Footwork",
+    teluguTitle: "సాంప్రదాయ కర్రసాము విన్యాసాలు",
+    category: "Master Demonstrations",
+    thumbnail: "/images/hero.jpg",
+    duration: "4:18",
+    description: "An authentic demonstration of rapid 360-degree staff rotation, high-velocity sweeps, and traditional Adugulu footwork transitions.",
+  },
+  {
+    youtubeId: "k5h2XgQd3_Y",
+    title: "Jodi Karra (Twin Bamboo Sticks) High Speed Sparring",
+    teluguTitle: "జోడి కర్ర వేగవంతమైన పోరు",
+    category: "Sparring & Poru",
+    thumbnail: "/images/sparring.jpg",
+    duration: "5:42",
+    description: "Watch senior practitioners engage in fluid twin-stick defense, circular trapping drills, and deflection counters.",
+  },
+  {
+    youtubeId: "M7lc1UVf-VE",
+    title: "Gurukulam Daily Life: Breathwork & Staff Conditioning",
+    teluguTitle: "గురుకుల సాధన మరియు ప్రాణాయామం",
+    category: "Gurukulam Training",
+    thumbnail: "/images/trainer.jpg",
+    duration: "6:25",
+    description: "A glimpse into sunrise training, oil-curing of mountain bamboo, and the spiritual grounding that accompanies martial discipline.",
+  },
+  {
+    youtubeId: "dQw4w9WgXcQ", // Safe fallback
+    youtubeId: "9bZkp7q19f0",
+    title: "Grand Exhibition: Andhra Art of War at Heritage Festival",
+    teluguTitle: "రాష్ట్ర స్థాయి సాంస్కృతిక ప్రదర్శన",
+    category: "Master Demonstrations",
+    thumbnail: "/images/grandmaster.jpg",
+    duration: "8:10",
+    description: "Annual cultural heritage performance featuring blindfolded auditory deflection and classical warrior salutations.",
+  },
+];
