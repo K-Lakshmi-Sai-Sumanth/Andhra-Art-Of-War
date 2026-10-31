@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 export default function GalleryPage() {
-  const { isTelugu } = useLanguage();
+  const { isTelugu, t } = useLanguage();
   const { playWhoosh, playWoodClick } = useSound();
 
   const [activeTab, setActiveTab] = useState("all"); // "all" | "photos" | "videos"
@@ -41,15 +41,16 @@ export default function GalleryPage() {
       {/* Page Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
         <SectionHeading
-          tag="Living Visual Archives"
-          teluguSubtitle="చిత్ర & దృశ్యమాలిక"
-          title="Gurukulam Demonstrations & Photos"
+          tag={t("gallery.heading.tag", "Living Visual Archives")}
+          teluguSubtitle={t("gallery.heading.teluguSubtitle", "చిత్ర & దృశ్యమాలిక")}
+          title={t("gallery.heading.title", "Gurukulam Demonstrations & Photos")}
           align="center"
         />
         <p className="text-sm md:text-base text-stone-600 leading-relaxed font-normal">
-          {isTelugu
-            ? "గురుకుల ప్రాంగణంలో జరిగే నిత్య సాధన, బహిరంగ ప్రదర్శనలు, చారిత్రక చిత్రాలు మరియు వీడియోల సమాహారం."
-            : "High-speed staff rotations, partner sparring in the combat arena, and archival heritage footage captured across Andhra Pradesh."}
+          {t(
+            "gallery.heading.description",
+            "High-speed staff rotations, partner sparring in the combat arena, and archival heritage footage captured across Andhra Pradesh."
+          )}
         </p>
       </div>
 
@@ -66,11 +67,10 @@ export default function GalleryPage() {
               setActiveTab(tab.id);
               playWoodClick();
             }}
-            className={`px-5 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider transition-all ${
-              activeTab === tab.id
+            className={`px-5 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider transition-all ${activeTab === tab.id
                 ? "bg-gradient-to-r from-[#DC2626] to-[#EF4444] text-white shadow-md shadow-[#DC2626]/20 border border-amber-400/40"
                 : "bg-white text-stone-700 hover:text-stone-900 border border-stone-200 shadow-sm"
-            }`}
+              }`}
           >
             {isTelugu ? tab.telugu : tab.label}
           </button>
@@ -86,11 +86,10 @@ export default function GalleryPage() {
               setSelectedCategory(cat);
               playWoodClick();
             }}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              selectedCategory === cat
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${selectedCategory === cat
                 ? "bg-amber-500 text-white font-bold shadow-sm"
                 : "bg-white text-stone-700 hover:text-stone-900 border border-stone-200 shadow-sm"
-            }`}
+              }`}
           >
             {cat}
           </button>

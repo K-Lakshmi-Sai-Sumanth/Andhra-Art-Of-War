@@ -13,7 +13,7 @@ export default function SectionHeading({
     <div className={`mb-10 ${isCenter ? "text-center" : "text-left"}`}>
       {tag && (
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-widest border border-amber-300 bg-amber-50 text-amber-900 mb-3 shadow-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#DC2626] animate-ping" />
+          {/* <span className="w-1.5 h-1.5 rounded-full bg-[#DC2626] animate-ping" /> */}
           {tag}
         </div>
       )}

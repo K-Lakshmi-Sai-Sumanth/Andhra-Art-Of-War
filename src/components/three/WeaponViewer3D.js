@@ -104,7 +104,7 @@ export default function WeaponViewer3D({ compact = false }) {
     // 3. Renderer with antialiasing and tone mapping
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1, 1.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25;
     currentMount.appendChild(renderer.domElement);
@@ -135,12 +135,18 @@ export default function WeaponViewer3D({ compact = false }) {
     buildWeaponModel(weaponGroup, "staff", "bamboo", false);
     setIsLoaded(true);
 
-    // 6. Animation loop using performance.now (no deprecated clock)
-    let animationFrameId;
+    // 6. Animation loop using performance.now with viewport pause
+    let animationFrameId = null;
     let lastTime = performance.now();
     let totalElapsedTime = 0;
+    let isVisible = true;
+    let isTabActive = typeof document !== "undefined" ? document.visibilityState !== "hidden" : true;
 
     const animate = () => {
+      if (!isVisible || !isTabActive) {
+        animationFrameId = null;
+        return;
+      }
       animationFrameId = requestAnimationFrame(animate);
       const now = performance.now();
       const delta = Math.min((now - lastTime) / 1000, 0.1);
@@ -154,7 +160,32 @@ export default function WeaponViewer3D({ compact = false }) {
 
       renderer.render(scene, camera);
     };
-    animate();
+
+    let intersectionObserver = null;
+    if (typeof IntersectionObserver !== "undefined") {
+      intersectionObserver = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && isTabActive && !animationFrameId) {
+            lastTime = performance.now();
+            animate();
+          }
+        },
+        { threshold: 0.05 }
+      );
+      intersectionObserver.observe(currentMount);
+    } else {
+      animate();
+    }
+
+    const handleVisibilityChange = () => {
+      isTabActive = document.visibilityState !== "hidden";
+      if (isVisible && isTabActive && !animationFrameId) {
+        lastTime = performance.now();
+        animate();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     // 7. Resize handling
     const handleResize = () => {
@@ -168,8 +199,18 @@ export default function WeaponViewer3D({ compact = false }) {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationFrameId);
+      if (handleResize) {
+        window.removeEventListener("resize", handleResize);
+      }
+      if (handleVisibilityChange) {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      }
+      if (intersectionObserver) {
+        intersectionObserver.disconnect();
+      }
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
       if (currentMount && renderer.domElement) {
         currentMount.removeChild(renderer.domElement);
       }
@@ -443,11 +484,10 @@ export default function WeaponViewer3D({ compact = false }) {
               setActiveWeapon("staff");
               playWhoosh(1.0);
             }}
-            className={`px-3 py-1.5 rounded-lg text-xs font-serif font-bold uppercase tracking-wider transition-all ${
-              activeWeapon === "staff"
+            className={`px-3 py-1.5 rounded-lg text-xs font-serif font-bold uppercase tracking-wider transition-all ${activeWeapon === "staff"
                 ? "bg-[#DC2626] text-white shadow-md shadow-[#DC2626]/30"
                 : "text-stone-600 hover:text-stone-900"
-            }`}
+              }`}
           >
             Karrasamu Staff
           </button>
@@ -456,11 +496,10 @@ export default function WeaponViewer3D({ compact = false }) {
               setActiveWeapon("talwar");
               playWhoosh(1.2);
             }}
-            className={`px-3 py-1.5 rounded-lg text-xs font-serif font-bold uppercase tracking-wider transition-all ${
-              activeWeapon === "talwar"
+            className={`px-3 py-1.5 rounded-lg text-xs font-serif font-bold uppercase tracking-wider transition-all ${activeWeapon === "talwar"
                 ? "bg-[#DC2626] text-white shadow-md shadow-[#DC2626]/30"
                 : "text-stone-600 hover:text-stone-900"
-            }`}
+              }`}
           >
             Talwar & Shield
           </button>
@@ -476,9 +515,8 @@ export default function WeaponViewer3D({ compact = false }) {
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleMouseUp}
-        className={`relative w-full cursor-grab active:cursor-grabbing select-none bg-[#F6F2EB] rounded-xl overflow-hidden my-3 ${
-          compact ? "h-[320px] md:h-[400px]" : "h-[420px] md:h-[520px]"
-        }`}
+        className={`relative w-full cursor-grab active:cursor-grabbing select-none bg-[#F6F2EB] rounded-xl overflow-hidden my-3 ${compact ? "h-[320px] md:h-[400px]" : "h-[420px] md:h-[520px]"
+          }`}
       >
         {!isLoaded && (
           <div className="absolute inset-0 flex items-center justify-center bg-[#FAF8F5]/90 z-10">
@@ -497,11 +535,10 @@ export default function WeaponViewer3D({ compact = false }) {
               playWoodClick();
             }}
             title={autoRotate ? "Pause Auto-Rotation" : "Enable Auto-Rotation"}
-            className={`p-2.5 rounded-xl border backdrop-blur-md transition-all shadow-md ${
-              autoRotate
+            className={`p-2.5 rounded-xl border backdrop-blur-md transition-all shadow-md ${autoRotate
                 ? "bg-amber-100 border-amber-400 text-amber-900 font-bold"
                 : "bg-white/90 border-stone-200 text-stone-600 hover:text-stone-900"
-            }`}
+              }`}
           >
             <RotateCw className="w-4 h-4" />
           </button>
@@ -528,11 +565,10 @@ export default function WeaponViewer3D({ compact = false }) {
               playWoodClick();
             }}
             title="Toggle Wireframe Structural Analysis"
-            className={`p-2.5 rounded-xl border backdrop-blur-md transition-all shadow-md ${
-              wireframe
+            className={`p-2.5 rounded-xl border backdrop-blur-md transition-all shadow-md ${wireframe
                 ? "bg-amber-500 text-white border-amber-500 font-bold"
                 : "bg-white/90 border-stone-200 text-stone-600 hover:text-stone-900"
-            }`}
+              }`}
           >
             <Eye className="w-4 h-4" />
           </button>
@@ -572,11 +608,10 @@ export default function WeaponViewer3D({ compact = false }) {
                   setMaterialType(mat.id);
                   playWoodClick();
                 }}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all ${
-                  materialType === mat.id
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border transition-all ${materialType === mat.id
                     ? "border-amber-400 bg-amber-50 text-stone-900 font-bold shadow-sm"
                     : "border-stone-200 bg-stone-50 text-stone-600 hover:text-stone-900"
-                }`}
+                  }`}
               >
                 <span className={`w-3 h-3 rounded-full ${mat.color} border border-amber-400/40`} />
                 {mat.label}

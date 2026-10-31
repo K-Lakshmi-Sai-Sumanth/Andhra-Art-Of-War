@@ -48,7 +48,7 @@ export default function MartialSpinDojo3D() {
     // 3. Renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1, 1.5));
     currentMount.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
@@ -213,7 +213,34 @@ export default function MartialSpinDojo3D() {
       renderer.render(scene, camera);
     };
 
-    animate();
+    let isVisible = true;
+    let isTabActive = typeof document !== "undefined" ? document.visibilityState !== "hidden" : true;
+
+    let intersectionObserver = null;
+    if (typeof IntersectionObserver !== "undefined") {
+      intersectionObserver = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && isTabActive && !animId) {
+            lastTime = performance.now();
+            animate();
+          }
+        },
+        { threshold: 0.05 }
+      );
+      intersectionObserver.observe(currentMount);
+    } else {
+      animate();
+    }
+
+    const handleVisibilityChange = () => {
+      isTabActive = document.visibilityState !== "hidden";
+      if (isVisible && isTabActive && !animId) {
+        lastTime = performance.now();
+        animate();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     const handleResize = () => {
       if (!currentMount) return;
@@ -226,8 +253,18 @@ export default function MartialSpinDojo3D() {
     window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animId);
+      if (handleResize) {
+        window.removeEventListener("resize", handleResize);
+      }
+      if (handleVisibilityChange) {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      }
+      if (intersectionObserver) {
+        intersectionObserver.disconnect();
+      }
+      if (animId) {
+        cancelAnimationFrame(animId);
+      }
       if (currentMount && renderer.domElement) {
         currentMount.removeChild(renderer.domElement);
       }
@@ -252,14 +289,7 @@ export default function MartialSpinDojo3D() {
   }, [cameraAngle]);
 
   const techniques = [
-    {
-      id: "infinity",
-      title: "Figure-8 Infinity Spin",
-      telugu: "ఎనిమిది వరుస (Enimidi Varusa)",
-      icon: Wind,
-      desc: "Continuous perpetual wrist roll generating non-stop centrifugal deflection around the vital organs.",
-      cadence: "Double rhythm (2 beats per revolution)",
-    },
+
     {
       id: "helicopter",
       title: "Overhead Helicopter Shield",
@@ -318,11 +348,10 @@ export default function MartialSpinDojo3D() {
 
           <button
             onClick={toggleSound}
-            className={`p-2 rounded-xl border transition-all ${
-              soundEnabled
-                ? "bg-[#C4A46A]/20 border-[#C4A46A] text-[#F2E9D8]"
-                : "bg-[#29251E] border-[#C4A46A]/30 text-[#C7BCAB]"
-            }`}
+            className={`p-2 rounded-xl border transition-all ${soundEnabled
+              ? "bg-[#C4A46A]/20 border-[#C4A46A] text-[#F2E9D8]"
+              : "bg-[#29251E] border-[#C4A46A]/30 text-[#C7BCAB]"
+              }`}
             title={soundEnabled ? "Martial Sound FX Enabled (Click to Mute)" : "Enable Martial Sound FX"}
           >
             {soundEnabled ? <Volume2 className="w-4 h-4 text-[#C4A46A]" /> : <VolumeX className="w-4 h-4" />}
@@ -342,11 +371,10 @@ export default function MartialSpinDojo3D() {
                 setActiveTechnique(tech.id);
                 playWhoosh(1.2);
               }}
-              className={`p-3.5 rounded-xl border text-left transition-all relative overflow-hidden ${
-                isActive
-                  ? "border-[#C4A46A] bg-gradient-to-r from-[#8B3F2B]/40 to-[#29251E] text-white shadow-lg shadow-[#8B3F2B]/20"
-                  : "border-[#C4A46A]/20 bg-[#29251E]/60 text-[#C7BCAB] hover:border-[#C4A46A]/40"
-              }`}
+              className={`p-3.5 rounded-xl border text-left transition-all relative overflow-hidden ${isActive
+                ? "border-[#C4A46A] bg-gradient-to-r from-[#8B3F2B]/40 to-[#29251E] text-white shadow-lg shadow-[#8B3F2B]/20"
+                : "border-[#C4A46A]/20 bg-[#29251E]/60 text-[#C7BCAB] hover:border-[#C4A46A]/40"
+                }`}
             >
               <div className="flex items-center gap-2 mb-1">
                 <Icon className={`w-4 h-4 ${isActive ? "text-[#C4A46A]" : "text-[#8B3F2B]"}`} />
@@ -380,11 +408,10 @@ export default function MartialSpinDojo3D() {
                 setCameraAngle(angle.id);
                 playWoodClick();
               }}
-              className={`px-2.5 py-1 rounded-lg text-xs transition-all ${
-                cameraAngle === angle.id
-                  ? "bg-[#8B3F2B] text-white font-medium"
-                  : "text-[#C7BCAB] hover:text-white"
-              }`}
+              className={`px-2.5 py-1 rounded-lg text-xs transition-all ${cameraAngle === angle.id
+                ? "bg-[#8B3F2B] text-white font-medium"
+                : "text-[#C7BCAB] hover:text-white"
+                }`}
             >
               {angle.label}
             </button>

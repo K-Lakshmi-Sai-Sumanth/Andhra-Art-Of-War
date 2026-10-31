@@ -4,29 +4,29 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import SectionHeading from "@/components/ui/SectionHeading";
 
-const WarriorHero3D = dynamic(() => import("@/components/three/WarriorHero3D"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[580px] lg:h-[680px] bg-[#FAF8F5] flex flex-col items-center justify-center gap-3">
-      <div className="w-10 h-10 border-2 border-amber-600 border-t-[#DC2626] rounded-full animate-spin" />
-      <span className="text-xs font-serif text-amber-800 uppercase tracking-widest font-bold">
-        Loading 3D Dojo...
-      </span>
-    </div>
-  ),
-});
+// const WarriorHero3D = dynamic(() => import("@/components/three/WarriorHero3D"), {
+//   ssr: false,
+//   loading: () => (
+//     <div className="w-full h-[580px] lg:h-[680px] bg-[#FAF8F5] flex flex-col items-center justify-center gap-3">
+//       <div className="w-10 h-10 border-2 border-amber-600 border-t-[#DC2626] rounded-full animate-spin" />
+//       <span className="text-xs font-serif text-amber-800 uppercase tracking-widest font-bold">
+//         Loading 3D Dojo...
+//       </span>
+//     </div>
+//   ),
+// });
 
-const WeaponViewer3D = dynamic(() => import("@/components/three/WeaponViewer3D"), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-[450px] bg-[#FAF8F5] flex flex-col items-center justify-center gap-3">
-      <div className="w-10 h-10 border-2 border-amber-600 border-t-[#DC2626] rounded-full animate-spin" />
-      <span className="text-xs font-serif text-amber-800 uppercase tracking-widest font-bold">
-        Loading 3D Armory...
-      </span>
-    </div>
-  ),
-});
+// const WeaponViewer3D = dynamic(() => import("@/components/three/WeaponViewer3D"), {
+//   ssr: false,
+//   loading: () => (
+//     <div className="w-full h-[450px] bg-[#FAF8F5] flex flex-col items-center justify-center gap-3">
+//       <div className="w-10 h-10 border-2 border-amber-600 border-t-[#DC2626] rounded-full animate-spin" />
+//       <span className="text-xs font-serif text-amber-800 uppercase tracking-widest font-bold">
+//         Loading 3D Armory...
+//       </span>
+//     </div>
+//   ),
+// });
 
 import { curriculumLevels, weeklySchedule, faqsList } from "@/data/trainingData";
 import { useLanguage } from "@/components/layout/LanguageContext";
@@ -46,29 +46,30 @@ import {
 import Link from "next/link";
 
 export default function TrainingPage() {
-  const { isTelugu } = useLanguage();
+  const { isTelugu, t } = useLanguage();
   const { playWoodClick } = useSound();
   const [openFaq, setOpenFaq] = useState(0);
 
   return (
     <div className="w-full py-12 md:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-[#FAF8F5]">
       {/* Page Header */}
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <SectionHeading
-          tag="Curriculum & 3D Visualizer"
-          teluguSubtitle="శాస్త్రీయ శిక్షణా విధానం"
-          title="Training Pathways & 3D Interactive Dojo"
+      {/* <div className="text-center max-w-3xl mx-auto mb-16"> */}
+      {/* <SectionHeading
+          tag={t("training.heading.tag", "Curriculum")}
+          teluguSubtitle={t("training.heading.teluguSubtitle", "శాస్త్రీయ శిక్షణా విధానం")}
+          title={t("training.heading.title", "Training Pathways")}
           align="center"
-        />
-        <p className="text-sm md:text-base text-stone-600 leading-relaxed font-normal">
-          {isTelugu
-            ? "శాస్త్రీయంగా రూపొందించబడిన 4 దశల శిక్షణ. ప్రాథమిక అడుగుల నుండి ద్వంద్వ యుద్ధం (పోరు) వరకు ప్రతి అడుగు నిపుణులైన ఆచార్యుల పర్యవేక్షణలో నేర్పించబడుతుంది."
-            : "A structured 4-tier pedagogical syllabus bridging classical warrior conditioning with modern biomechanics and real-time 3D technique visualization."}
-        </p>
-      </div>
+        /> */}
+      {/* <p className="text-sm md:text-base text-stone-600 leading-relaxed font-normal">
+          {t(
+            "training.heading.description",
+            "A structured 4-tier pedagogical syllabus bridging classical warrior conditioning with modern biomechanics and real-time 3D technique visualization."
+          )}
+        </p> */}
+      {/* </div> */}
 
       {/* 1. ARTICULATED WARRIOR 3D DOJO SIMULATOR */}
-      <section className="mb-24">
+      {/* <section className="mb-24">
         <div className="text-center mb-6">
           <span className="text-xs font-serif font-bold text-amber-800 uppercase tracking-widest">
             Module 1: Real-Time Centrifugal Biomechanics
@@ -84,7 +85,7 @@ export default function TrainingPage() {
         <div className="w-full h-[580px] lg:h-[680px] rounded-2xl overflow-hidden border border-amber-200 shadow-xl">
           <WarriorHero3D />
         </div>
-      </section>
+      </section> */}
 
       {/* 2. FOUR-LEVEL CURRICULUM SYLLABUS */}
       <section className="mb-24">
@@ -144,7 +145,7 @@ export default function TrainingPage() {
       </section>
 
       {/* 3. 3D WEAPON ARMORY & MATERIAL LAB */}
-      <section className="mb-24 pt-12 border-t border-amber-200">
+      {/* <section className="mb-24 pt-12 border-t border-amber-200">
         <div className="text-center mb-10">
           <SectionHeading
             tag="Weaponry & Metallurgy"
@@ -158,7 +159,7 @@ export default function TrainingPage() {
         </div>
 
         <WeaponViewer3D compact={false} />
-      </section>
+      </section> */}
 
       {/* 4. AKHADA TIMINGS & BATCH SCHEDULE */}
       <section className="mb-24 pt-12 border-t border-amber-200">
@@ -246,9 +247,8 @@ export default function TrainingPage() {
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
-                    className={`w-4 h-4 text-amber-700 transition-transform ${
-                      isOpen ? "rotate-180" : ""
-                    }`}
+                    className={`w-4 h-4 text-amber-700 transition-transform ${isOpen ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
                 {isOpen && (

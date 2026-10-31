@@ -11,15 +11,15 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { soundEnabled, toggleSound, playBell } = useSound();
-  const { language, toggleLanguage, isTelugu } = useLanguage();
+  const { language, toggleLanguage, isTelugu, t } = useLanguage();
 
   const navLinks = [
-    { href: "/", label: isTelugu ? "ముఖచిత్రం" : "Home" },
-    { href: "/heritage", label: isTelugu ? "చరిత్ర & సంప్రదాయం" : "Heritage" },
-    { href: "/lineage", label: isTelugu ? "గురు పరంపర" : "Lineage" },
-    { href: "/training", label: isTelugu ? "శిక్షణ & 3D డోజో" : "Training & 3D" },
-    { href: "/gallery", label: isTelugu ? "గ్యాలరీ & వీడియోలు" : "Gallery" },
-    { href: "/contact", label: isTelugu ? "సంప్రదించండి" : "Contact" },
+    { href: "/", label: t("nav.home", "Home") },
+    { href: "/heritage", label: t("nav.heritage", "Heritage") },
+    { href: "/lineage", label: t("nav.lineage", "Lineage") },
+    { href: "/training", label: t("nav.training", "Training") },
+    { href: "/gallery", label: t("nav.gallery", "Gallery") },
+    { href: "/contact", label: t("nav.contact", "Contact") },
   ];
 
   return (
@@ -44,10 +44,10 @@ export default function Navbar() {
 
           <div>
             <span className="font-serif font-black tracking-widest text-stone-900 text-sm sm:text-base uppercase group-hover:text-amber-800 transition-colors block">
-              Sri Vijaya Karrasamu
+              {t("common.gurukulamName", "Andhra Art Of War")}
             </span>
             <p className="text-[10px] sm:text-xs font-serif text-amber-800 font-semibold tracking-wider uppercase">
-              {isTelugu ? "శ్రీ విజయ కర్రసాము గురుకులం" : "Andhra Art of War • Gurukulam"}
+              {isTelugu ? "గురుకులం • గురు విజయ కుమార్ కాళిదాసు" : "Gurukulam • Guru vijay Kumar Kalidasu"}
             </p>
           </div>
         </Link>
@@ -60,11 +60,10 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-3.5 py-2 rounded-xl text-xs tracking-wider uppercase font-bold transition-all ${
-                  isActive
-                    ? "text-[#DC2626] bg-amber-50/90 border border-amber-300/80 shadow-sm"
-                    : "text-stone-700 hover:text-stone-900 hover:bg-stone-100/70"
-                }`}
+                className={`relative px-3.5 py-2 rounded-xl text-xs tracking-wider uppercase font-bold transition-all ${isActive
+                  ? "text-[#DC2626] bg-amber-50/90 border border-amber-300/80 shadow-sm"
+                  : "text-stone-700 hover:text-stone-900 hover:bg-stone-100/70"
+                  }`}
               >
                 {link.label}
                 {isActive && (
@@ -81,11 +80,10 @@ export default function Navbar() {
           <button
             onClick={toggleSound}
             title={soundEnabled ? "Martial Sound Enabled" : "Enable Martial Sound FX"}
-            className={`p-2.5 rounded-xl border transition-all ${
-              soundEnabled
-                ? "bg-amber-100/90 border-amber-400 text-amber-800 shadow-sm"
-                : "bg-stone-100 border-stone-200 text-stone-500 hover:text-stone-800"
-            }`}
+            className={`p-2.5 rounded-xl border transition-all ${soundEnabled
+              ? "bg-amber-100/90 border-amber-400 text-amber-800 shadow-sm"
+              : "bg-stone-100 border-stone-200 text-stone-500 hover:text-stone-800"
+              }`}
           >
             {soundEnabled ? <Volume2 className="w-4 h-4 text-amber-700" /> : <VolumeX className="w-4 h-4" />}
           </button>
@@ -106,7 +104,7 @@ export default function Navbar() {
             onClick={() => playBell(600, 0.6)}
             className="px-5 py-2.5 rounded-xl text-xs font-serif font-black tracking-widest uppercase bg-gradient-to-r from-[#DC2626] via-[#E11D48] to-[#DC2626] hover:opacity-90 text-white shadow-md shadow-[#DC2626]/25 hover:scale-105 transition-all border border-amber-400/40"
           >
-            {isTelugu ? "చేరండి" : "Enroll Now"}
+            {t("nav.enroll", "Enroll Now")}
           </Link>
         </div>
 
@@ -138,11 +136,10 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-4 py-2.5 rounded-xl text-sm font-bold tracking-wider uppercase ${
-                  isActive
-                    ? "bg-[#DC2626] text-white font-black"
-                    : "text-stone-700 hover:bg-stone-100 hover:text-stone-900"
-                }`}
+                className={`block px-4 py-2.5 rounded-xl text-sm font-bold tracking-wider uppercase ${isActive
+                  ? "bg-[#DC2626] text-white font-black"
+                  : "text-stone-700 hover:bg-stone-100 hover:text-stone-900"
+                  }`}
               >
                 {link.label}
               </Link>
@@ -155,7 +152,7 @@ export default function Navbar() {
               className="flex items-center gap-2 px-3 py-2 rounded-xl border border-stone-200 bg-white text-xs text-stone-700"
             >
               {soundEnabled ? <Volume2 className="w-4 h-4 text-amber-700" /> : <VolumeX className="w-4 h-4" />}
-              <span>{soundEnabled ? "Sound ON" : "Sound OFF"}</span>
+              <span>{soundEnabled ? t("nav.soundOn", "Sound ON") : t("nav.soundOff", "Sound OFF")}</span>
             </button>
 
             <Link
@@ -163,7 +160,7 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="flex-1 text-center py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#DC2626] to-[#EF4444] text-white"
             >
-              Enroll Now
+              {t("nav.enroll", "Enroll Now")}
             </Link>
           </div>
         </div>

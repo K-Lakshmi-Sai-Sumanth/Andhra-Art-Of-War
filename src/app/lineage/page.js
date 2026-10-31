@@ -10,7 +10,7 @@ import { Award, Shield, UserCheck, Flame, BookOpen, Quote, Sparkles } from "luci
 import Link from "next/link";
 
 export default function LineagePage() {
-  const { isTelugu } = useLanguage();
+  const { isTelugu, t } = useLanguage();
   const { playBell } = useSound();
 
   return (
@@ -18,15 +18,16 @@ export default function LineagePage() {
       {/* Page Header */}
       <div className="text-center max-w-3xl mx-auto mb-16">
         <SectionHeading
-          tag="Authentic Lineage"
-          teluguSubtitle="గురు శిష్య పరంపర"
-          title="The Masters of Andhra Karrasamu"
+          tag={t("lineage.heading.tag", "Authentic Lineage")}
+          teluguSubtitle={t("lineage.heading.teluguSubtitle", "గురు శిష్య పరంపర")}
+          title={t("lineage.heading.title", "The Masters of Andhra Karrasamu")}
           align="center"
         />
         <p className="text-sm md:text-base text-stone-600 leading-relaxed font-normal">
-          {isTelugu
-            ? "గురు పరంపర అంటే కేవలం విద్య నేర్పిన వారి పేర్ల జాబితా కాదు; అది తరతరాలుగా శ్వాస ద్వారా శిష్యునికి అందించిన పవిత్ర ధర్మ సంకల్పం."
-            : "A verified unbroken chain of transmission connecting modern practitioners to the grandmasters of 19th and 20th century coastal Andhra."}
+          {t(
+            "lineage.heading.description",
+            "A verified unbroken chain of transmission connecting modern practitioners to the grandmasters of 19th and 20th century coastal Andhra."
+          )}
         </p>
       </div>
 
@@ -175,16 +176,19 @@ export default function LineagePage() {
       <div className="bg-white border border-amber-300 rounded-3xl p-8 sm:p-10 text-center max-w-3xl mx-auto shadow-xl text-stone-900">
         <Shield className="w-10 h-10 text-amber-700 mx-auto mb-3" />
         <h3 className="font-serif text-xl sm:text-2xl font-bold text-stone-900 mb-2">
-          Interested in Direct Gurukulam Apprenticeship?
+          {t("lineage.cta.title", "Interested in Direct Gurukulam Apprenticeship?")}
         </h3>
         <p className="text-xs sm:text-sm text-stone-600 mb-6 max-w-xl mx-auto leading-relaxed">
-          We accept a limited number of dedicated long-term residential and weekend disciples committed to cultural preservation and disciplined practice.
+          {t(
+            "lineage.cta.description",
+            "Guru vijay Kumar Kalidasu accepts disciplined students committed to authentic preservation, moral integrity, and rigorous akhada training."
+          )}
         </p>
         <Link
           href="/contact"
           className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-xs font-serif font-bold uppercase tracking-widest bg-gradient-to-r from-[#DC2626] to-[#EF4444] hover:opacity-90 text-white shadow-md shadow-[#DC2626]/20 transition-all border border-amber-400/40"
         >
-          <span>Inquire About Guru-Shishya Program</span>
+          <span>{t("lineage.cta.button", "Inquire for Direct Admission")}</span>
         </Link>
       </div>
     </div>

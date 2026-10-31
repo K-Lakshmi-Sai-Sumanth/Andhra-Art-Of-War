@@ -99,7 +99,7 @@ export const faqsList = [
   },
   {
     q: "What is the minimum age to begin training?",
-    a: "Children can begin from age 7 onwards with specialized lightweight bamboo sticks. We also train adult beginners well into their 50s and 60s for agility, joint longevity, and mental focus.",
+    a: "Children can begin from age 5 onwards with specialized lightweight bamboo sticks. We also train adult beginners well into their 50s and 60s for agility, joint longevity, and mental focus.",
   },
   {
     q: "Is it safe? How do you prevent injuries during sparring?",

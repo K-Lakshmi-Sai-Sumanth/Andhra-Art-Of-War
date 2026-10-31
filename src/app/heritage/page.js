@@ -19,7 +19,7 @@ import {
 import Link from "next/link";
 
 export default function HeritagePage() {
-  const { isTelugu } = useLanguage();
+  const { isTelugu, t } = useLanguage();
   const { playWoodClick } = useSound();
   const [selectedWeapon, setSelectedWeapon] = useState(weaponsList[0]);
 
@@ -28,15 +28,16 @@ export default function HeritagePage() {
       {/* Page Header */}
       <div className="text-center max-w-3xl mx-auto mb-16">
         <SectionHeading
-          tag="Living Tradition & Chronicles"
-          teluguSubtitle="ఆంధ్ర యుద్ధ కళా ప్రాశస్త్యం"
-          title="The Heritage of Karrasamu"
+          tag={t("heritage.heading.tag", "Living Tradition & Chronicles")}
+          teluguSubtitle={t("heritage.heading.teluguSubtitle", "ఆంధ్ర యుద్ధ కళా ప్రాశస్త్యం")}
+          title={t("heritage.heading.title", "The Heritage of Karrasamu")}
           align="center"
         />
         <p className="text-sm md:text-base text-stone-600 leading-relaxed font-normal">
-          {isTelugu
-            ? "శతాబ్దాల కాలంగా దక్షిణ భారతదేశంలోని రక్షణ దళాలకు వెన్నుదన్నుగా నిలిచిన కర్రసాము విద్యను, దాని అసలైన శాస్త్రీయ రూపంలో భద్రపరచడమే మా ధ్యేయం."
-            : "Tracing the martial lineage of Andhra Pradesh from the fortress garrisons of the Kakatiya and Vijayanagara dynasties to clandestine colonial survival and modern Gurukulam revitalization."}
+          {t(
+            "heritage.heading.description",
+            "Tracing the martial lineage of Andhra Pradesh from the fortress garrisons of the Kakatiya and Vijayanagara dynasties to clandestine colonial survival and modern Gurukulam revitalization."
+          )}
         </p>
       </div>
 
@@ -105,11 +106,10 @@ export default function HeritagePage() {
                     setSelectedWeapon(w);
                     playWoodClick();
                   }}
-                  className={`w-full text-left p-4 rounded-xl border transition-all ${
-                    isSelected
+                  className={`w-full text-left p-4 rounded-xl border transition-all ${isSelected
                       ? "border-amber-400 bg-amber-50 text-stone-900 shadow-md font-bold"
                       : "border-amber-200/80 bg-white text-stone-700 hover:border-amber-400 shadow-sm"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-serif font-bold text-sm text-stone-900">

@@ -37,10 +37,10 @@ export const heritageTimeline = [
   },
   {
     period: "Present Day",
-    title: "Sri Vijaya Karrasamu Gurukulam",
-    teluguTitle: "శ్రీ విజయ కర్రసాము గురుకులం",
+    title: "Andhra Art Of War Gurukulam",
+    teluguTitle: "ఆంధ్ర ఆర్ట్ ఆఫ్ వార్ గురుకులం",
     description:
-      "Preserving living heritage through strict Guru-Shishya tradition, modern sports science integration, youth discipline programs, and international cultural demonstrations.",
+      "Preserving living heritage through strict Guru-Shishya tradition led by Guru vijay Kumar Kalidasu, modern sports science integration, youth discipline programs, and international cultural demonstrations.",
     verified: true,
     tag: "Living Tradition",
   },

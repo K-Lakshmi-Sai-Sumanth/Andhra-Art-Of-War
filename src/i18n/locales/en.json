@@ -1,0 +1,227 @@
+{
+  "common": {
+    "gurukulamName": "Andhra Art Of War",
+    "gurukulamSubtitle": "Gurukulam • Living Martial Lineage",
+    "guruName": "Vijay Kumar Kalidasu",
+    "guruTitle": "Chief Master & Trainer",
+    "fullGuruName": "Guru Sri Vijay Kumar Kalidasu",
+    "motto": "Dharmo Rakshati Rakshitah — The weapon protects only when guided by Dharma.",
+    "enrollNow": "Enroll Now",
+    "contactUs": "Contact Us",
+    "watchKatas": "Watch Katas",
+    "learnMore": "Learn More",
+    "exploreLineage": "Explore Guru Parampara",
+    "syllabusDetails": "Syllabus Details",
+    "historicalChronicle": "Read Historical Chronicle",
+    "whatsappDirect": "WhatsApp Direct",
+    "allRightsReserved": "All rights reserved. Traditional heritage of Andhra Pradesh.",
+    "preservingHeritage": "Preserving Indian Indigenous Martial Arts with"
+  },
+  "nav": {
+    "home": "Home",
+    "heritage": "Heritage",
+    "lineage": "Lineage",
+    "training": "Training",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "enroll": "Enroll Now",
+    "soundOn": "Sound ON",
+    "soundOff": "Sound OFF",
+    "tagline": "Andhra Art of War • Gurukulam"
+  },
+  "home": {
+    "martialBadge": "Andhra Art Of War",
+    "gurukulamBadge": "Guru Vijay Kumar Kalidasu",
+    "subheadingBadge": "Andhra Art Of War Gurukulam • Living Martial Lineage",
+    "headlineMain": "Andhra Praacheena Yudha Kalalu",
+    "headlineHighlight": "& BATTLEFIELD MASTERY",
+    "heroDescription": "Command an articulated warrior executing traditional Karrasamu staff whirlwinds, curved Talwar sword combat, and authentic brass Dhal shield bashes in real-time 3D.",
+    "heroCtaEnroll": "Enroll for Classes",
+    "heroCtaWatch": "Watch Katas",
+    "heroCtaSyllabus": "Syllabus Details",
+    "stats": [
+      {
+        "value": "70+",
+        "label": "Years Living Lineage",
+        "sub": "Est. 1952"
+      },
+      {
+        "value": "36",
+        "label": "Codified Katas",
+        "sub": "Ancient Varasulu"
+      },
+      {
+        "value": "1,200+",
+        "label": "Disciples Trained",
+        "sub": "Youth to Masters"
+      },
+      {
+        "value": "100%",
+        "label": "Authentic Heritage",
+        "sub": "Non-commercial"
+      }
+    ],
+    "pillarsHeading": {
+      "tag": "Martial Disciplines",
+      "teluguSubtitle": "సాధనా విభాగాలు",
+      "title": "The Four Core Pillars of Combat"
+    },
+    "pillars": [
+      {
+        "title": "Adugulu (అడుగులు)",
+        "subtitle": "Triangular Combat Footwork",
+        "desc": "The sacred geometry of grounding. Rapid weight shifts, directional pivots, and evasive stepping inspired by tiger and eagle stances."
+      },
+      {
+        "title": "Karra (కర్ర)",
+        "subtitle": "Centrifugal Staff Velocity",
+        "desc": "Mastery of the 6-foot bamboo staff. Generating continuous circular momentum to form a 360-degree kinetic forcefield around the warrior."
+      },
+      {
+        "title": "Talwar & Dhal (కత్తి & డాలు)",
+        "subtitle": "Royal Sword & Brass Shield",
+        "desc": "Historical battlefield blade forms, cutting arcs, thrusting lines, and solid brass shield deflections codified in royal garadis."
+      },
+      {
+        "title": "Veera Poru (వీర పోరు)",
+        "subtitle": "Authentic Warrior Sparring",
+        "desc": "Real-time combat reaction inside the training arena. Pressure testing rhythm, distance judgment, and weapon disarming with zero malice."
+      }
+    ],
+    "learnSyllabus": "Learn syllabus",
+    "guruFeature": {
+      "badge": "Authentic Lineage Custodianship",
+      "name": "Guru Sri Vijay Kumar Kalidasu",
+      "role": "Chief Master & Trainer, Andhra Art Of War",
+      "heading": "Preserving the Sacred Breath of Karrasamu",
+      "quote": "\"In Karrasamu, the staff is not held to subjugate an enemy; it is spun to illuminate the undisciplined mind. When the weapon flies at full velocity, there is zero space for pride or hesitation.\"",
+      "description": "Led by Chief Guru & Trainer Vijay Kumar Kalidasu, Andhra Art Of War continues the unbroken transmission from foundational Grandmaster Sri Boddu Ramadasu (1898–1974), ensuring that the ancient oral rhythms and akhada conditioning remain alive for generations to come.",
+      "exploreParampara": "Explore Guru Parampara",
+      "readChronicle": "Read Historical Chronicle"
+    },
+    "videosHeading": {
+      "tag": "Video Demonstrations",
+      "teluguSubtitle": "ప్రత్యక్ష ప్రదర్శనలు",
+      "title": "Witness the Centrifugal Speed of Karrasamu",
+      "viewAll": "View Full Photo & Video Gallery"
+    },
+    "enrollSection": {
+      "heading": "Begin Your Warrior Journey",
+      "description": "Classes are conducted in the Ghantasala Music Collage, sanctified under the divine feet of Goddess Sri Kanaka Durga in Vijayawada. Open to all aspiring practitioners aged 5 and above no prior experience required.",
+      "submitInquiry": "Submit Enrollment Inquiry",
+      "whatsApp": "WhatsApp Direct"
+    }
+  },
+  "lineage": {
+    "heading": {
+      "tag": "Authentic Lineage",
+      "teluguSubtitle": "గురు శిష్య పరంపర",
+      "title": "The Masters of Andhra Karrasamu",
+      "description": "A verified unbroken chain of transmission connecting modern practitioners to the grandmasters of coastal Andhra."
+    },
+    "guruVandanam": {
+      "tag": "Guru Vandanam • గురు వందనం",
+      "button": "Sound Bell of Reverence"
+    },
+    "cta": {
+      "title": "Interested in Direct Gurukulam Apprenticeship?",
+      "description": "Guru Vijay Kumar Kalidasu accepts disciplined students committed to authentic preservation, moral integrity, and rigorous akhada training.",
+      "button": "Inquire for Direct Admission"
+    }
+  },
+  "training": {
+    "syllabusHeading": {
+      "tag": "Graded Advancement",
+      "teluguSubtitle": "శిక్షణా స్థాయిలు",
+      "title": "The 4-Stage Gurukulam Syllabus"
+    },
+    "timetableHeading": {
+      "tag": "Akhada Timings",
+      "teluguSubtitle": "తరగతుల సమయ పట్టిక",
+      "title": "Gurukulam Class Timetable"
+    },
+    "faqHeading": {
+      "tag": "Inquiry Answers",
+      "teluguSubtitle": "తరచూ అడిగే ప్రశ్నలు",
+      "title": "Frequently Asked Questions"
+    }
+  },
+  "heritage": {
+    "heading": {
+      "tag": "Living Tradition & Chronicles",
+      "teluguSubtitle": "ఆంధ్ర యుద్ధ కళా ప్రాశస్త్యం",
+      "title": "The Heritage of Karrasamu",
+      "description": "Tracing the martial lineage of Andhra Pradesh from the fortress garrisons of the Kakatiya and Vijayanagara dynasties to clandestine colonial survival and modern Gurukulam revitalization."
+    },
+    "timelineHeading": {
+      "title": "Historical Chronology & Oral Traditions",
+      "subtitle": "Chronological records verified against regional inscriptions and living memory"
+    },
+    "weaponsHeading": {
+      "tag": "Armory & Metallurgy",
+      "teluguSubtitle": "సాంప్రదాయ ఆయుధాలు",
+      "title": "Weapons of the Andhra Gurukulam"
+    },
+    "philosophyHeading": {
+      "tag": "Ethical Warfare",
+      "teluguSubtitle": "యుద్ధ ధర్మం & క్రమశిక్షణ",
+      "title": "The Four Virtues of the Andhra Warrior"
+    }
+  },
+  "gallery": {
+    "heading": {
+      "tag": "Living Visual Archives",
+      "teluguSubtitle": "చిత్ర & దృశ్యమాలిక",
+      "title": "Gurukulam Demonstrations & Photos",
+      "description": "High-speed staff rotations, partner sparring in the combat arena, and archival heritage footage captured across Andhra Pradesh."
+    },
+    "tabs": {
+      "all": "All Media",
+      "photos": "Archival Photography",
+      "videos": "Demonstration Reels"
+    }
+  },
+  "contact": {
+    "heading": {
+      "tag": "Direct Inquiry & Enrollment",
+      "teluguSubtitle": "గురుకుల ప్రవేశ సమాచారం",
+      "title": "Connect with Andhra Art Of War",
+      "description": "Whether inquiring about beginner batches, master workshops, or cultural demonstrations, Guru Vijay Kumar Kalidasu and our trainers welcome your correspondence."
+    },
+    "form": {
+      "badge": "Official Admissions Desk",
+      "title": "Admission & Workshop Inquiry Form",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Your Full Name",
+      "contactInfo": "Phone Number or Email Address",
+      "contactPlaceholder": "+91 98765 43210 or yourname@gmail.com",
+      "inquiryType": "Nature of Inquiry",
+      "preferredLanguage": "Preferred Communication Language",
+      "message": "Message / Martial Background",
+      "messagePlaceholder": "Tell us about your interest, previous experience (if any), or specific questions for the Guru...",
+      "submitButton": "Submit Gurukulam Application",
+      "submitting": "Transmitting to Gurukulam...",
+      "successTitle": "Namaskaram! Inquiry Received",
+      "successDesc": "Your inquiry has been submitted. Guru Vijay Kumar Kalidasu and the training staff will connect with you shortly."
+    },
+    "directConnect": {
+      "title": "Direct Contact & Location",
+      "address": "Ghantasala Music Collage, Durgapuram (SN Puram), Vijayawada, Andhra Pradesh 520003",
+      "phone": "+91 95530 00201",
+      "email": "acharya@andhraartofwar.org",
+      "whatsAppCta": "Chat with Us on WhatsApp",
+      "locationTitle": "Sacred Stone Garadi",
+      "locationDesc": "Open-air clay and granite training ground surrounded by hill breezes and maritime humidity for natural warrior endurance."
+    }
+  },
+  "footer": {
+    "brandName": "Andhra Art Of War",
+    "brandTelugu": "ఆంధ్ర ఆర్ట్ ఆఫ్ వార్ • గురుకులం",
+    "description": "Dedicated to the authentic preservation, scientific practice, and ethical transmission of Karrasamu—the ancient staff combat art of Andhra Pradesh under Guru Vijay Kumar Kalidasu.",
+    "exploreTitle": "Explore Tradition",
+    "timingsTitle": "Akhada Timings",
+    "locationTitle": "Gurukulam Location",
+    "chatWhatsApp": "Chat on WhatsApp",
+    "copyright": "© 2026 Andhra Art Of War. All rights reserved. Traditional heritage of Andhra Pradesh."
+  }
+}

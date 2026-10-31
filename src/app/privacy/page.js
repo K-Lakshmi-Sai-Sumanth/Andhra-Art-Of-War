@@ -3,8 +3,8 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { ShieldCheck, Lock, EyeOff, UserCheck } from "lucide-react";
 
 export const metadata = {
-  title: "Privacy Notice & Data Ethics | Sri Vijaya Karrasamu Gurukulam",
-  description: "Privacy policy regarding student contact inquiries, data protection, and third-party media embeds.",
+  title: "Privacy Notice & Data Ethics | Andhra Art Of War",
+  description: "Privacy policy regarding student contact inquiries, data protection, and martial ethics at Andhra Art Of War.",
 };
 
 export default function PrivacyPage() {
@@ -34,7 +34,7 @@ export default function PrivacyPage() {
             <span>2. Purpose & Communication</span>
           </h3>
           <p>
-            Your details are used solely by Sri Vijaya Karrasamu Gurukulam administrators to coordinate batch timings, provide fee details, and address questions regarding martial training. You may opt out of future notifications at any time by messaging or emailing us.
+            Your details are used solely by Andhra Art Of War administrators to coordinate batch timings, provide fee details, and address questions regarding martial training under Guru Vijaya Kumar Kalidasu. You may opt out of future notifications at any time by messaging or emailing us.
           </p>
         </div>
 

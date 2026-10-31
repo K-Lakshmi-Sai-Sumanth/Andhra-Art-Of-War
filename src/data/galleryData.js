@@ -19,12 +19,12 @@ export const galleryPhotos = [
   },
   {
     id: "p2",
-    title: "Chief Acharya Sri Ramana Murthy",
-    teluguTitle: "ఆచార్య రమణ మూర్తి గారి దర్శనం",
+    title: "Guru Sri vijay Kumar Kalidasu",
+    teluguTitle: "గురు శ్రీ విజయ కుమార్ కాళిదాసు గారి దర్శనం",
     category: "Heritage & Lineage",
-    image: "/images/trainer.jpg",
-    alt: "Dignified portrait of the Chief Acharya holding upright bamboo staff in traditional temple courtyard",
-    caption: "Thirty-eight uninterrupted years carrying the living flame of Andhra martial heritage.",
+    image: "/images/trainer.webp",
+    alt: "Dignified portrait of Chief Guru and Trainer vijay Kumar Kalidasu holding upright bamboo staff in traditional temple courtyard",
+    caption: "Chief teacher and trainer leading Andhra Art Of War, carrying forward the living flame of Andhra martial heritage.",
     date: "Gurukulam Archives",
   },
   {

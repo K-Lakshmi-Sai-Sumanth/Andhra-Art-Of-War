@@ -39,42 +39,50 @@ import {
 import { youtubeVideos } from "@/data/galleryData";
 
 export default function HomePage() {
-  const { isTelugu } = useLanguage();
+  const { isTelugu, t } = useLanguage();
   const { playBell, playWhoosh } = useSound();
   const [selectedVideo, setSelectedVideo] = useState(null);
 
   const pillars = [
     {
-      title: "Adugulu (అడుగులు)",
-      subtitle: "Triangular Combat Footwork",
-      desc: "The sacred geometry of grounding. Rapid weight shifts, directional pivots, and evasive stepping inspired by tiger and eagle stances.",
+      title: isTelugu ? "అడుగులు (Adugulu)" : "Adugulu (అడుగులు)",
+      subtitle: isTelugu ? "త్రిభుజాకార పోరాట అడుగులు" : "Triangular Combat Footwork",
+      desc: isTelugu
+        ? "భూమిపై దృఢమైన నిలకడ. పులి మరియు గరుడ ముద్రలతో కూడిన మెరుపు వేగపు కదలికలు మరియు దిశ మార్పిడులు."
+        : "The sacred geometry of grounding. Rapid weight shifts, directional pivots, and evasive stepping inspired by tiger and eagle stances.",
       icon: Compass,
     },
     {
-      title: "Karra (కర్ర)",
-      subtitle: "Centrifugal Staff Velocity",
-      desc: "Mastery of the 6-foot bamboo staff. Generating continuous circular momentum to form a 360-degree kinetic forcefield around the warrior.",
+      title: isTelugu ? "కర్ర (Karra)" : "Karra (కర్ర)",
+      subtitle: isTelugu ? "వేగవంతమైన కర్ర భ్రమణం" : "Centrifugal Staff Velocity",
+      desc: isTelugu
+        ? "ఆరడుగుల దృఢమైన వెదురు కర్రపై సంపూర్ణ పట్టు. నిరంతర వృత్తాకార వేగంతో యోధుని చుట్టూ 360 డిగ్రీల రక్షణ వలయం సృష్టిస్తుంది."
+        : "Mastery of the 6-foot bamboo staff. Generating continuous circular momentum to form a 360-degree kinetic forcefield around the warrior.",
       icon: Zap,
     },
     {
-      title: "Talwar & Dhal (కత్తి & డాలు)",
-      subtitle: "Royal Sword & Brass Shield",
-      desc: "Historical battlefield blade forms, cutting arcs, thrusting lines, and solid brass shield deflections codified in royal garadis.",
+      title: isTelugu ? "కత్తి & డాలు (Talwar & Dhal)" : "Talwar & Dhal (కత్తి & డాలు)",
+      subtitle: isTelugu ? "రాజపుత్ర ఖడ్గం & ఇత్తడి డాలు" : "Royal Sword & Brass Shield",
+      desc: isTelugu
+        ? "చారిత్రక యుద్ధభూమి ఖడ్గ విన్యాసాలు, కోత కోతలు, సూటి దాడులు మరియు రాజ గారడీలలో భద్రపరచబడిన డాలు రక్షణ."
+        : "Historical battlefield blade forms, cutting arcs, thrusting lines, and solid brass shield deflections codified in royal garadis.",
       icon: Sword,
     },
     {
-      title: "Veera Poru (వీర పోరు)",
-      subtitle: "Authentic Warrior Sparring",
-      desc: "Real-time combat reaction inside the training arena. Pressure testing rhythm, distance judgment, and weapon disarming with zero malice.",
+      title: isTelugu ? "వీర పోరు (Veera Poru)" : "Veera Poru (వీర పోరు)",
+      subtitle: isTelugu ? "అసలైన ద్వంద్వ సమరం" : "Authentic Warrior Sparring",
+      desc: isTelugu
+        ? "అఖాడా ప్రాంగణంలో నిజ-సమయ పోరాట ప్రతిస్పందన. దూరం అంచనా వేయడం, లయబద్ధమైన ఎదురుదాడులు మరియు ఆయుధాన్ని చేజిక్కించుకోవడం."
+        : "Real-time combat reaction inside the training arena. Pressure testing rhythm, distance judgment, and weapon disarming with zero malice.",
       icon: Shield,
     },
   ];
 
   const stats = [
-    { value: "70+", label: isTelugu ? "సంవత్సరాల పరంపర" : "Years Living Lineage", sub: "Est. 1952" },
-    { value: "36", label: isTelugu ? "సాంప్రదాయ వరుసలు" : "Codified Katas", sub: "Ancient Varasulu" },
-    { value: "1,200+", label: isTelugu ? "శిక్షణ పొందిన శిష్యులు" : "Disciples Trained", sub: "Youth to Masters" },
-    { value: "100%", label: isTelugu ? "సాంప్రదాయ గురుకులం" : "Authentic Heritage", sub: "Non-commercial" },
+    { value: "70+", label: isTelugu ? "సంవత్సరాల పరంపర" : "Years Living Lineage", sub: isTelugu ? "స్థాపన 1952" : "Est. 1952" },
+    { value: "36", label: isTelugu ? "సాంప్రదాయ వరుసలు" : "Codified Katas", sub: isTelugu ? "ప్రాచీన వరసలు" : "Ancient Varasulu" },
+    { value: "1,200+", label: isTelugu ? "శిక్షణ పొందిన శిష్యులు" : "Disciples Trained", sub: isTelugu ? "యువత నుండి నిపుణులు" : "Youth to Masters" },
+    { value: "100%", label: isTelugu ? "సాంప్రదాయ గురుకులం" : "Authentic Heritage", sub: isTelugu ? "నిఖార్సైన వారసత్వం" : "Non-commercial" },
   ];
 
   return (
@@ -84,30 +92,31 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto text-center space-y-4">
           {/* Martial Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-300 bg-amber-50 text-amber-900 text-xs font-bold tracking-widest uppercase shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#DC2626] animate-ping" />
-            <span>{isTelugu ? "ఆంధ్ర సమర కళ" : "Andhra Art of War"}</span>
-            <span className="text-stone-300">•</span>
-            <span>{isTelugu ? "శ్రీ విజయ గురుకులం" : "Sri Vijaya Gurukulam"}</span>
+            {/* <span className="w-2 h-2 rounded-full bg-[#DC2626] animate-ping" /> */}
+            {/* <span>{t("common.gurukulamName", "Andhra Art Of War")}</span>
+            <span className="text-stone-300">•</span> */}
+            <span>{t("common.guruName", "Vijay Kumar Kalidasu")}</span>
           </div>
 
-          {/* Telugu Title Subtitle */}
+          {/* Title Subtitle */}
           <p className="font-serif text-amber-800 text-sm sm:text-base md:text-lg font-bold tracking-widest uppercase">
-            {isTelugu ? "శ్రీ విజయ కర్రసాము గురుకులం • సజీవ సమర కళ" : "Sri Vijaya Karrasamu Gurukulam • Living Martial Lineage"}
+            {t("home.subheadingBadge", "Andhra Art Of War Gurukulam • Living Martial Lineage")}
           </p>
 
           {/* Master Heading */}
-          <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-stone-900 uppercase leading-[1.1]">
-            CENTRIFUGAL FORCE <br className="hidden sm:inline" />
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-stone-900 uppercase leading-[1.1]">
+            {t("home.headlineMain", "Andhra Praacheena Yudha Kalalu")} <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#B45309] via-amber-600 to-[#DC2626]">
-              & BATTLEFIELD MASTERY
+              {/* {t("home.headlineMain", "Andhra Praacheena Yudha Kalalu")} */}
             </span>
           </h1>
 
-          <p className="text-sm sm:text-base text-stone-600 font-normal max-w-3xl mx-auto leading-relaxed">
-            {isTelugu
-              ? "కాకతీయ, విజయనగర యోధుల అసలైన కర్రసాము, కత్తి మరియు డాలు విద్యలను కిందనున్న 3D డోజోలో ప్రత్యక్షంగా తిలకించండి. గగన భ్రమణాలు, కత్తి విన్యాసాలు మరియు డాలు రక్షణను స్టంట్ బటన్లతో నియంత్రించండి."
-              : "Command an articulated warrior executing traditional Karrasamu staff whirlwinds, curved Talwar sword combat, and authentic brass Dhal shield bashes in real-time 3D."}
-          </p>
+          {/* <p className="text-sm sm:text-base text-stone-600 font-normal max-w-3xl mx-auto leading-relaxed">
+            {t(
+              "home.heroDescription",
+              "Command an articulated warrior executing traditional Karrasamu staff whirlwinds, curved Talwar sword combat, and authentic brass Dhal shield bashes in real-time 3D."
+            )}
+          </p> */}
 
           {/* Action CTAs */}
           <div className="flex flex-wrap items-center justify-center gap-3.5 pt-3">
@@ -116,7 +125,7 @@ export default function HomePage() {
               onClick={() => playBell(528, 0.7)}
               className="px-6 py-3.5 rounded-xl font-serif text-xs sm:text-sm font-bold uppercase tracking-widest bg-gradient-to-r from-[#DC2626] via-[#E11D48] to-[#DC2626] hover:opacity-90 text-white shadow-md shadow-[#DC2626]/30 border border-amber-400/40 hover:scale-105 transition-all flex items-center gap-2 group"
             >
-              <span>{isTelugu ? "తరగతుల్లో చేరండి" : "Enroll for Classes"}</span>
+              <span>{t("home.heroCtaEnroll", "Enroll for Classes")}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
 
@@ -130,14 +139,14 @@ export default function HomePage() {
               <div className="w-5 h-5 rounded-full bg-[#DC2626] flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Play className="w-2.5 h-2.5 text-white fill-white ml-0.5" />
               </div>
-              <span>{isTelugu ? "వీడియో చూడండి" : "Watch Katas"}</span>
+              <span>{t("home.heroCtaWatch", "Watch Katas")}</span>
             </button>
 
             <Link
               href="/training"
               className="px-5 py-3.5 rounded-xl font-serif text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-800 hover:text-stone-900 border border-amber-300 bg-amber-50/60 hover:bg-amber-100 transition-all shadow-sm"
             >
-              {isTelugu ? "సిలబస్ వివరాలు" : "Syllabus Details"}
+              {t("home.heroCtaSyllabus", "Syllabus Details")}
             </Link>
           </div>
         </div>
@@ -348,7 +357,7 @@ export default function HomePage() {
           </h2>
 
           <p className="text-sm sm:text-base text-stone-600 max-w-xl mx-auto mb-8 leading-relaxed">
-            Classes are held in the sacred stone garadi at the foothills of Kailasagiri, Visakhapatnam. Open to all students aged 7 and above. No prior experience required.
+            Classes are conducted at Ghantasala Music Collage, sanctified under the divine feet of Goddess Sri Kanaka Durga in Vijayawada. Open to all aspiring practitioners aged 7 and above—no prior experience required.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">

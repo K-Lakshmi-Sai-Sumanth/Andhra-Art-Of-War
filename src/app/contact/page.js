@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 
 export default function ContactPage() {
-  const { isTelugu } = useLanguage();
+  const { isTelugu, t } = useLanguage();
   const { playBell, playWoodClick } = useSound();
 
   const [formData, setFormData] = useState({
@@ -86,15 +86,16 @@ export default function ContactPage() {
       {/* Page Header */}
       <div className="text-center max-w-3xl mx-auto mb-16">
         <SectionHeading
-          tag="Direct Inquiry & Enrollment"
-          teluguSubtitle="గురుకుల ప్రవేశ సమాచారం"
-          title="Connect with Sri Vijaya Gurukulam"
+          tag={t("contact.heading.tag", "Direct Inquiry & Enrollment")}
+          teluguSubtitle={t("contact.heading.teluguSubtitle", "గురుకుల ప్రవేశ సమాచారం")}
+          title={t("contact.heading.title", "Connect with Andhra Art Of War")}
           align="center"
         />
         <p className="text-sm md:text-base text-stone-600 leading-relaxed font-normal">
-          {isTelugu
-            ? "గురుకులంలో చేరాలనుకునే వారు క్రింది పత్రం ద్వారా సంప్రదించవచ్చు లేదా నేరుగా వాట్సాప్ ద్వారా సందేశం పంపవచ్చు."
-            : "Whether inquiring about beginner batches, master workshops, or cultural demonstrations, our Acharyas welcome your correspondence."}
+          {t(
+            "contact.heading.description",
+            "Whether inquiring about beginner batches, master workshops, or cultural demonstrations, Guru vijay Kumar Kalidasu and our trainers welcome your correspondence."
+          )}
         </p>
       </div>
 
@@ -251,12 +252,12 @@ export default function ContactPage() {
               Get immediate answers regarding fees, batch openings, and directions directly from our admin coordinator.
             </p>
             <a
-              href="https://wa.me/919440128934?text=Namaskaram%2C%20I%20want%20to%20inquire%20about%20Karrasamu%20training%20at%20Sri%20Vijaya%20Gurukulam."
+              href="https://wa.me/919440128934?text=Namaskaram%2C%20I%20want%20to%20inquire%20about%20Karrasamu%20training%20at%20Andhra%20Art%20Of%20War%20Gurukulam%20under%20Guru%20Vijaya%20Kumar%20Kalidasu."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-xs font-bold uppercase tracking-widest bg-[#25D366] text-white hover:bg-[#20b858] transition-all shadow-md font-serif"
             >
-              <span>Message on WhatsApp (+91 94401 28934)</span>
+              <span>Message on WhatsApp (+91 95530 00201)</span>
               <ExternalLink className="w-4 h-4" />
             </a>
           </div>
@@ -267,16 +268,16 @@ export default function ContactPage() {
               <MapPin className="w-6 h-6 text-[#DC2626]" />
               <div>
                 <h4 className="font-serif font-bold text-base text-stone-900">
-                  Sri Vijaya Karrasamu Gurukulam
+                  {t("common.gurukulamName", "Andhra Art Of War")}
                 </h4>
-                <p className="text-xs text-amber-800 font-semibold">Traditional Akhada Ground</p>
+                <p className="text-xs text-amber-800 font-semibold">{t("contact.directConnect.locationTitle", "Traditional Akhada Ground")}</p>
               </div>
             </div>
 
             <div className="space-y-3 text-xs sm:text-sm text-stone-600">
               <p>
                 <span className="font-bold text-stone-900 block mb-0.5">Physical Address:</span>
-                Kailasagiri Foothills, Opposite Maritime Park, Beach Road, Visakhapatnam, Andhra Pradesh 530043, India.
+                Under the Divine Feet of Sri Kanaka Durga Ammavaru, Ghantasala Music Collage, Durgapuram (SN Puram), Vijayawada, Andhra Pradesh 520003, India.
               </p>
 
               <p>
@@ -286,7 +287,7 @@ export default function ContactPage() {
 
               <p>
                 <span className="font-bold text-stone-900 block mb-0.5">Direct Acharya Desk:</span>
-                +91 94401 28934 / contact@andhraartofwar.org
+                +91 95530 00201 / contact@andhraartofwar.org
               </p>
             </div>
 
@@ -297,13 +298,13 @@ export default function ContactPage() {
                   <MapPin className="w-5 h-5" />
                 </div>
                 <p className="font-serif font-bold text-xs text-stone-900">
-                  Visakhapatnam Coastal Akhada
+                  Vijayawada Indrakeeladri Akhada
                 </p>
                 <p className="text-[11px] text-amber-800 font-medium">
-                  Latitude 17.7384° N, Longitude 83.3377° E
+                  Under the Lotus Feet of Sri Kanaka Durga • Latitude 16.5144° N, Longitude 80.6066° E
                 </p>
                 <a
-                  href="https://maps.google.com/?q=Visakhapatnam+Beach+Road"
+                  href="https://maps.google.com/?q=Indrakeeladri+Kanaka+Durga+Temple+Vijayawada"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-[11px] font-bold text-[#DC2626] hover:text-amber-800 uppercase tracking-wider mt-1"

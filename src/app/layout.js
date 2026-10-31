@@ -6,23 +6,25 @@ import { LanguageProvider } from "@/components/layout/LanguageContext";
 
 export const metadata = {
   metadataBase: new URL("https://andhraartofwar.org"),
-  title: "Andhra Art of War | Sri Vijaya Karrasamu Gurukulam",
+  title: "Andhra Art Of War | Guru Vijay Kumar Kalidasu",
   description:
-    "Official training center and living heritage school of Karrasamu (కర్రసాము) — the traditional staff fighting and ancient martial art of Andhra Pradesh. Interactive 3D weapon viewer, authentic lineage, curriculum, and class enrollment.",
+    "Official training center and living heritage school of Andhra Art Of War under Guru Sri Vijay Kumar Kalidasu — preserving Karrasamu (కర్రసాము), traditional staff combat, and battlefield weaponry of Andhra Pradesh.",
   keywords: [
+    "Andhra Art Of War",
+    "Vijay Kumar Kalidasu",
     "Karrasamu",
     "కర్రసాము",
-    "Andhra Art of War",
     "Indian Martial Arts",
     "Stick Fighting",
-    "Gurukulam Visakhapatnam",
+    "Gurukulam Vijayawada",
+    "Indrakeeladri Kanaka Durga",
     "Jodi Karra",
-    "Silambam Andhra",
+    "Talwar Dhal",
   ],
   openGraph: {
-    title: "Andhra Art of War | Sri Vijaya Karrasamu Gurukulam",
-    description: "Discover the ancient staff fighting heritage of Andhra Pradesh. Interactive 3D armory, verified lineage, and authentic martial curriculum.",
-    images: ["/images/hero.jpg"],
+    title: "Andhra Art Of War | Guru Vijay Kumar Kalidasu",
+    description: "Official Gurukulam of Andhra Art Of War under Guru Sri Vijay Kumar Kalidasu. Discover ancient Karrasamu staff combat, interactive 3D armory, and verified lineage.",
+    images: ["/images/hero.webp"],
   },
 };
 
