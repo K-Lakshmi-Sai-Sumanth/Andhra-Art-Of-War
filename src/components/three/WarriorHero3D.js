@@ -89,6 +89,13 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
       weapon: "staff",
       icon: Activity,
     },
+    infinity_spin: {
+      name: "Trinity Infinity Whirlwind Spin",
+      telugu: "త్రివిధ భ్రమణం • మూడు దిశల వేగవంతమైన కర్ర చక్రం",
+      desc: "Authentic 4-zone Karrasamu staff rotation: left flank wheel, right flank counter-spin, overhead umbrella canopy, and infinite figure-8 whirlwind.",
+      weapon: "staff",
+      icon: RotateCw,
+    },
   };
 
   const handleSelectStunt = (stuntKey) => {
