@@ -150,7 +150,7 @@ export default function Footer() {
               {/* Direct WhatsApp Action */}
               <div className="pt-2">
                 <a
-                  href="https://wa.me/919440128934?text=Namaskaram%2C%20I%20am%20interested%20in%20learning%20Karrasamu%20at%20Andhra%20Art%20Of%20War%20Gurukulam%20under%20Guru%20Vijaya%20Kumar%20Kalidasu."
+                  href="https://wa.me/919553000201?text=Namaskaram%2C%20I%20am%20interested%20in%20learning%20Karrasamu%20at%20Andhra%20Art%20Of%20War%20Gurukulam%20under%20Guru%20Vijaya%20Kumar%20Kalidasu."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl text-xs font-bold tracking-wider uppercase bg-[#25D366]/15 border border-[#25D366]/40 text-[#15803d] hover:bg-[#25D366] hover:text-white transition-all shadow-sm"

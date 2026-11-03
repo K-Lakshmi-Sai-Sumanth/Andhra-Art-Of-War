@@ -93,3 +93,12 @@ body {
 .animate-pulse-subtle {
   animation: pulseSubtle 3.5s ease-in-out infinite;
 }
+
+/* Hide scrollbar for clean horizontal pill docks */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

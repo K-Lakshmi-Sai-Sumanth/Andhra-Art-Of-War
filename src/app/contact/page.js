@@ -15,7 +15,8 @@ import {
   Clock,
   Sparkles,
   AlertCircle,
-  ShieldCheck
+  ShieldCheck,
+  Inbox
 } from "lucide-react";
 
 export default function ContactPage() {
@@ -24,7 +25,8 @@ export default function ContactPage() {
 
   const [formData, setFormData] = useState({
     name: "",
-    contact: "",
+    email: "",
+    phone: "",
     inquiryType: "Joining a Beginner Class",
     preferredLanguage: "Telugu & English",
     message: "",
@@ -71,7 +73,8 @@ export default function ContactPage() {
 
       setFormData({
         name: "",
-        contact: "",
+        email: "",
+        phone: "",
         inquiryType: "Joining a Beginner Class",
         preferredLanguage: "Telugu & English",
         message: "",
@@ -94,7 +97,7 @@ export default function ContactPage() {
         <p className="text-sm md:text-base text-stone-600 leading-relaxed font-normal">
           {t(
             "contact.heading.description",
-            "Whether inquiring about beginner batches, master workshops, or cultural demonstrations, Guru vijay Kumar Kalidasu and our trainers welcome your correspondence."
+            "Whether inquiring about beginner batches, master workshops, or cultural demonstrations, Guru Vijay Kumar Kalidasu and our trainers welcome your correspondence."
           )}
         </p>
       </div>
@@ -102,11 +105,17 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
         {/* Left Column: Contact Form */}
         <div className="lg:col-span-7 bg-white border border-amber-200/80 rounded-3xl p-6 sm:p-10 shadow-xl">
-          <div className="flex items-center gap-2 mb-6 pb-4 border-b border-amber-100">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#DC2626]" />
-            <h3 className="font-serif text-xl font-bold text-stone-900">
-              Enrollment & Inquiry Form
-            </h3>
+          <div className="flex items-center justify-between mb-6 pb-4 border-b border-amber-100">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#DC2626]" />
+              <h3 className="font-serif text-xl font-bold text-stone-900">
+                Enrollment & Email Inquiry Form
+              </h3>
+            </div>
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
+              <Inbox className="w-3.5 h-3.5 text-[#DC2626]" />
+              <span>Direct to Mail Inbox</span>
+            </span>
           </div>
 
           {status.success ? (
@@ -115,16 +124,16 @@ export default function ContactPage() {
                 <CheckCircle className="w-8 h-8" />
               </div>
               <h4 className="font-serif text-2xl font-bold text-stone-900">
-                Namaskaram! Inquiry Received.
+                Namaskaram! Inquiry Emailed Successfully.
               </h4>
               <p className="text-xs sm:text-sm text-stone-600 max-w-md mx-auto leading-relaxed">
-                Thank you for your interest in preserving Andhra Karrasamu. Our senior trainers will review your submission and contact you within 24 hours.
+                Your application has been delivered to our Gurukulam inbox. Guru Vijay Kumar Kalidasu and our senior trainers will review your inquiry and reply via email or phone shortly.
               </p>
               <button
                 onClick={() => setStatus({ submitting: false, success: false, error: null })}
                 className="mt-4 px-6 py-2.5 rounded-xl text-xs font-serif font-bold uppercase tracking-wider bg-white border border-amber-300 text-stone-800 hover:bg-stone-50 shadow-sm"
               >
-                Send Another Inquiry
+                Send Another Email Inquiry
               </button>
             </div>
           ) : (
@@ -136,7 +145,7 @@ export default function ContactPage() {
                 </div>
               )}
 
-              {/* Name */}
+              {/* Full Name */}
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-amber-900 mb-1.5">
                   Full Name (పూర్తి పేరు) <span className="text-[#DC2626]">*</span>
@@ -152,20 +161,38 @@ export default function ContactPage() {
                 />
               </div>
 
-              {/* Phone or Email */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-amber-900 mb-1.5">
-                  Phone Number or Email (ఫోన్ లేదా ఈమెయిల్) <span className="text-[#DC2626]">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="contact"
-                  required
-                  value={formData.contact}
-                  onChange={handleChange}
-                  placeholder="e.g. +91 98765 43210 or yourname@example.com"
-                  className="w-full bg-[#FAF8F5] border border-stone-300 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-sm"
-                />
+              {/* Email & Phone in 2 Columns */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Email (Required) */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-amber-900 mb-1.5">
+                    Email Address (ఈమెయిల్ చిరునామా) <span className="text-[#DC2626]">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="e.g. yourname@example.com"
+                    className="w-full bg-[#FAF8F5] border border-stone-300 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-sm"
+                  />
+                </div>
+
+                {/* Phone / WhatsApp (Optional) */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-amber-900 mb-1.5">
+                    Phone / WhatsApp (ఫోన్ నంబర్)
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="e.g. +91 95530 00201"
+                    className="w-full bg-[#FAF8F5] border border-stone-300 focus:border-amber-500 rounded-xl px-4 py-3 text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-1 focus:ring-amber-500 shadow-sm"
+                  />
+                </div>
               </div>
 
               {/* Inquiry Type & Preferred Language */}
@@ -223,17 +250,26 @@ export default function ContactPage() {
                 />
               </div>
 
+              {/* Email dispatch notice */}
+              <div className="flex items-center gap-2 p-3 bg-stone-50 border border-stone-200 rounded-xl text-stone-600 text-xs">
+                <Mail className="w-4 h-4 text-amber-700 shrink-0" />
+                <span>
+                  Submissions are dispatched directly as an email to our Gurukulam Acharyas. We respect your privacy.
+                </span>
+              </div>
+
               <button
                 type="submit"
                 disabled={status.submitting}
                 className="w-full py-4 rounded-xl font-serif text-xs sm:text-sm font-bold uppercase tracking-widest bg-gradient-to-r from-[#DC2626] via-[#E11D48] to-[#DC2626] hover:opacity-90 text-white shadow-md shadow-[#DC2626]/25 border border-amber-400/40 transition-all flex items-center justify-center gap-2 disabled:opacity-50 hover:scale-[1.01]"
               >
                 {status.submitting ? (
-                  <span>Submitting Inquiry...</span>
+                  <span>Dispatching Email...</span>
                 ) : (
                   <>
-                    <span>Submit Gurukulam Application</span>
-                    <Send className="w-4 h-4 ml-1" />
+                    <Mail className="w-4 h-4" />
+                    <span>Send Email Inquiry</span>
+                    <Send className="w-3.5 h-3.5 ml-1" />
                   </>
                 )}
               </button>
@@ -252,7 +288,7 @@ export default function ContactPage() {
               Get immediate answers regarding fees, batch openings, and directions directly from our admin coordinator.
             </p>
             <a
-              href="https://wa.me/919440128934?text=Namaskaram%2C%20I%20want%20to%20inquire%20about%20Karrasamu%20training%20at%20Andhra%20Art%20Of%20War%20Gurukulam%20under%20Guru%20Vijaya%20Kumar%20Kalidasu."
+              href="https://wa.me/919553000201?text=Namaskaram%2C%20I%20want%20to%20inquire%20about%20Karrasamu%20training%20at%20Andhra%20Art%20Of%20War%20Gurukulam%20under%20Guru%20Vijaya%20Kumar%20Kalidasu."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-xs font-bold uppercase tracking-widest bg-[#25D366] text-white hover:bg-[#20b858] transition-all shadow-md font-serif"

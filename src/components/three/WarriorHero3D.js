@@ -61,29 +61,9 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
 
   // Stunt Descriptions for the HUD
   const stuntDetails = {
-    air_tornado: {
-      name: "360° Hurricane Leap Staff Strike",
-      telugu: "గగన వక్ర చక్రం • 360° గాల్లో ఎగిరి కర్ర విన్యాసం",
-      desc: "Spectacular airborne 360° butterfly leap with centrifugal bamboo whirlwind and rock-solid Virasan impact landing.",
-      weapon: "staff",
-      icon: Zap,
-    },
-    shield_bash: {
-      name: "Talwar 4-Hit Combat Kata & Dhal Ram",
-      telugu: "ఖడ్గ చలన సమరం & డాలు రక్షణ దాడి • రాజపుత్ర యుద్ధ విన్యాసం",
-      desc: "High-action combat sequence: piercing lunge thrust, 180° crescent slash, airborne overhead cleave, and crushing brass Dhal shield ram.",
-      weapon: "sword_shield",
-      icon: Shield,
-    },
-    dual_flurry: {
-      name: "Jodi Karra Rhythmic Twin Stick Flurry",
-      telugu: "జోడి కర్ర లయబద్ధ సమర విన్యాసం • సమతుల్య ద్విముఖ దాడి",
-      desc: "Controlled twin-stick windmill rotations combining simultaneous high deflect and low counter at authentic combat tempo.",
-      weapon: "dual_sticks",
-      icon: Sword,
-    },
     combat_stance: {
       name: "Combat Stance & Warrior Guard",
+      mobileName: "Combat Stance",
       telugu: "సమర ముద్ర • యోధ రక్షణ & అప్రమత్తత",
       desc: "Authentic grounded combat stance with two-handed bamboo staff grip (lead left hand forward, rear right hand below) and vigilant martial breathing.",
       weapon: "staff",
@@ -91,10 +71,35 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
     },
     infinity_spin: {
       name: "Trinity Infinity Whirlwind Spin",
+      mobileName: "Whirlwind Spin",
       telugu: "త్రివిధ భ్రమణం • మూడు దిశల వేగవంతమైన కర్ర చక్రం",
       desc: "Authentic 4-zone Karrasamu staff rotation: left flank wheel, right flank counter-spin, overhead umbrella canopy, and infinite figure-8 whirlwind.",
       weapon: "staff",
       icon: RotateCw,
+    },
+    air_tornado: {
+      name: "360° Hurricane Leap Staff Strike",
+      mobileName: "360° Leap Strike",
+      telugu: "గగన వక్ర చక్రం • 360° గాల్లో ఎగిరి కర్ర విన్యాసం",
+      desc: "Spectacular airborne 360° butterfly leap with centrifugal bamboo whirlwind and rock-solid Virasan impact landing.",
+      weapon: "staff",
+      icon: Zap,
+    },
+    shield_bash: {
+      name: "Talwar 4-Hit Combat Kata & Dhal Ram",
+      mobileName: "Talwar Kata",
+      telugu: "ఖడ్గ చలన సమరం & డాలు రక్షణ దాడి • రాజపుత్ర యుద్ధ విన్యాసం",
+      desc: "High-action combat sequence: piercing lunge thrust, 180° crescent slash, airborne overhead cleave, and crushing brass Dhal shield ram.",
+      weapon: "sword_shield",
+      icon: Shield,
+    },
+    dual_flurry: {
+      name: "Jodi Karra Rhythmic Twin Stick Flurry",
+      mobileName: "Twin Sticks",
+      telugu: "జోడి కర్ర లయబద్ధ సమర విన్యాసం • సమతుల్య ద్విముఖ దాడి",
+      desc: "Controlled twin-stick windmill rotations combining simultaneous high deflect and low counter at authentic combat tempo.",
+      weapon: "dual_sticks",
+      icon: Sword,
     },
   };
 
@@ -146,15 +151,21 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
       // Linear fog prevents obscuring close/mid-range warrior and mandapam
       scene.fog = new THREE.Fog(0xF6F2EB, 14, 40);
 
-      // 2. Camera setup with cinematic framing
+      // 2. Camera setup with cinematic framing (auto-framed for mobile portrait)
       const getWidth = () => container.clientWidth || window.innerWidth || 1200;
       const getHeight = () => container.clientHeight || 750;
       const width = getWidth();
       const height = getHeight();
 
+      const isMobile = width < 640 || width / height < 0.85;
       const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-      camera.position.set(0, 1.30, 5.2);
-      camera.lookAt(0, 0.86, 0);
+      if (isMobile) {
+        camera.position.set(0, 1.25, 6.0);
+        camera.lookAt(0, 0.90, 0);
+      } else {
+        camera.position.set(0, 1.30, 5.2);
+        camera.lookAt(0, 0.86, 0);
+      }
       cameraRef.current = camera;
 
       // 3. Renderer with ACES Tone Mapping
@@ -580,8 +591,19 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
         const newWidth = container.clientWidth || window.innerWidth || 1200;
         const newHeight = container.clientHeight || 750;
         if (newWidth > 0 && newHeight > 0) {
-          cameraRef.current.aspect = newWidth / newHeight;
-          cameraRef.current.updateProjectionMatrix();
+          const cam = cameraRef.current;
+          cam.aspect = newWidth / newHeight;
+          const isMob = newWidth < 640 || newWidth / newHeight < 0.85;
+          if (cameraView === "action") {
+            if (isMob) {
+              cam.position.set(0, 1.25, 6.0);
+              cam.lookAt(0, 0.90, 0);
+            } else {
+              cam.position.set(0, 1.30, 5.2);
+              cam.lookAt(0, 0.86, 0);
+            }
+          }
+          cam.updateProjectionMatrix();
           rendererRef.current.setSize(newWidth, newHeight);
         }
       };
@@ -620,26 +642,47 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
         rendererRef.current.dispose();
       }
     };
-  }, []);
+  }, [cameraView]);
 
   // Camera preset controls
   const setCameraPreset = (mode) => {
     setCameraView(mode);
     const cam = cameraRef.current;
     if (!cam) return;
+    const isMob = typeof window !== "undefined" && (window.innerWidth < 640 || (mountRef.current && mountRef.current.clientWidth < 640));
 
     if (mode === "action") {
-      cam.position.set(0, 1.30, 5.2);
-      cam.lookAt(0, 0.86, 0);
+      if (isMob) {
+        cam.position.set(0, 1.25, 6.0);
+        cam.lookAt(0, 0.90, 0);
+      } else {
+        cam.position.set(0, 1.30, 5.2);
+        cam.lookAt(0, 0.86, 0);
+      }
     } else if (mode === "cinematic") {
-      cam.position.set(3.4, 1.55, 4.2);
-      cam.lookAt(0, 0.86, 0);
+      if (isMob) {
+        cam.position.set(3.2, 1.50, 5.2);
+        cam.lookAt(0, 0.90, 0);
+      } else {
+        cam.position.set(3.4, 1.55, 4.2);
+        cam.lookAt(0, 0.86, 0);
+      }
     } else if (mode === "overhead") {
-      cam.position.set(0, 4.6, 3.4);
-      cam.lookAt(0, 0.65, 0);
+      if (isMob) {
+        cam.position.set(0, 5.4, 4.2);
+        cam.lookAt(0, 0.70, 0);
+      } else {
+        cam.position.set(0, 4.6, 3.4);
+        cam.lookAt(0, 0.65, 0);
+      }
     } else if (mode === "close") {
-      cam.position.set(0.6, 1.25, 3.4);
-      cam.lookAt(0, 0.86, 0);
+      if (isMob) {
+        cam.position.set(0.5, 1.25, 4.2);
+        cam.lookAt(0, 0.90, 0);
+      } else {
+        cam.position.set(0.6, 1.25, 3.4);
+        cam.lookAt(0, 0.86, 0);
+      }
     }
   };
 
@@ -673,7 +716,7 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
   const activeStuntInfo = stuntDetails[activeStunt] || stuntDetails.air_tornado;
 
   return (
-    <div className="relative w-full h-full min-h-[600px] lg:min-h-[740px] overflow-hidden flex flex-col justify-between select-none bg-[#F6F2EB]">
+    <div className="relative w-full h-full min-h-[580px] sm:min-h-[640px] lg:min-h-[760px] overflow-hidden flex flex-col justify-between select-none bg-[#F6F2EB]">
       {/* 3D WebGL Canvas Layer (100% Unobstructed Temple View) */}
       <div
         ref={mountRef}
@@ -684,28 +727,29 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
         className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing z-0 touch-none"
       />
 
-      {/* TOP FLOATING STATUS BAR: Light Sandstone Theme Badges & Camera Presets */}
-      <div className="relative z-10 w-full p-4 sm:p-6 flex flex-wrap items-center justify-between gap-4 pointer-events-none">
+      {/* TOP FLOATING STATUS BAR: Ultra-Compact Single Row (Never overlaps warrior head) */}
+      <div className="relative z-10 w-full px-2.5 pt-2.5 pb-1 sm:px-6 sm:pt-4 flex items-center justify-between gap-2 pointer-events-none">
         {/* Left: Active Stunt Minimal Status Badge */}
-        <div className="pointer-events-auto bg-white/92 backdrop-blur-xl border border-amber-200/80 rounded-2xl px-4 py-2.5 shadow-lg flex items-center gap-3">
-          {/* <span className="w-2.5 h-2.5 rounded-full bg-[#DC2626] animate-ping" /> */}
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-amber-700">
-                Active Stunt:
+        <div className="pointer-events-auto bg-white/95 backdrop-blur-md border border-amber-200/90 rounded-xl sm:rounded-2xl px-2.5 py-1.5 sm:px-4 sm:py-2 shadow-sm sm:shadow-lg flex items-center gap-2 max-w-[58%] sm:max-w-none">
+          <span className="w-2 h-2 rounded-full bg-[#DC2626] animate-pulse shrink-0" />
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-amber-700 hidden xs:inline shrink-0">
+                Stunt:
               </span>
-              <span className="font-serif text-xs font-bold text-stone-900 uppercase">
-                {activeStuntInfo.name}
+              <span className="font-serif text-[11px] sm:text-xs font-bold text-stone-900 uppercase truncate">
+                <span className="hidden sm:inline">{activeStuntInfo.name}</span>
+                <span className="sm:hidden">{activeStuntInfo.mobileName || activeStuntInfo.name}</span>
               </span>
             </div>
-            <p className="font-telugu text-[11px] text-stone-600 font-medium">
+            <p className="font-telugu text-[10px] sm:text-[11px] text-stone-600 font-medium truncate hidden sm:block">
               {activeStuntInfo.telugu}
             </p>
           </div>
         </div>
 
         {/* Right: Camera Angle Pills */}
-        <div className="pointer-events-auto bg-white/92 backdrop-blur-xl border border-amber-200/80 rounded-2xl p-1.5 shadow-lg flex items-center gap-1">
+        <div className="pointer-events-auto bg-white/95 backdrop-blur-md border border-amber-200/90 rounded-xl sm:rounded-2xl p-0.5 sm:p-1 shadow-sm sm:shadow-lg flex items-center gap-0.5 sm:gap-1 shrink-0">
           {[
             { id: "action", label: "Front" },
             { id: "cinematic", label: "Angle" },
@@ -715,10 +759,11 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
             <button
               key={c.id}
               onClick={() => setCameraPreset(c.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${cameraView === c.id
-                ? "bg-[#DC2626] text-white shadow-md shadow-[#DC2626]/30"
-                : "text-stone-600 hover:text-stone-900 hover:bg-stone-100/80"
-                }`}
+              className={`px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all ${
+                cameraView === c.id
+                  ? "bg-[#DC2626] text-white shadow-xs shadow-[#DC2626]/30"
+                  : "text-stone-600 hover:text-stone-900 hover:bg-stone-100/80"
+              }`}
             >
               {c.label}
             </button>
@@ -726,38 +771,37 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
         </div>
       </div>
 
-      {/* BOTTOM FLOATING CONTROLS DOCK: Light Theme Weapon & Acrobatic Stunt Triggers */}
-      <div className="relative z-10 w-full p-3 sm:p-4 pointer-events-none flex flex-col items-center gap-2">
-        {/* Row 1: Interactive Weapon Selector Pills & Speed / Sound Controls */}
-        <div className="pointer-events-auto bg-white/92 backdrop-blur-xl border border-amber-200/80 rounded-2xl p-1.5 shadow-xl flex flex-wrap items-center justify-center gap-1.5">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-stone-500 px-2.5 hidden sm:inline-block">
-            Weapon:
-          </span>
+      {/* BOTTOM FLOATING CONTROLS DOCK: Streamlined, Non-Overlapping Controls */}
+      <div className="relative z-10 w-full px-2 pb-2 pt-1 sm:px-4 sm:pb-4 pointer-events-none flex flex-col items-center gap-1.5 sm:gap-2">
+        {/* Row 1: Interactive Weapon Pills + Speed / Sound (Single Horizontal Bar) */}
+        <div className="pointer-events-auto bg-white/95 backdrop-blur-md border border-amber-200/90 rounded-xl sm:rounded-2xl p-1 sm:p-1.5 shadow-md flex items-center justify-center gap-1 max-w-full overflow-x-auto no-scrollbar">
           {[
-            { id: "staff", label: "🎋 Bamboo Staff (కర్ర)", icon: Zap },
-            { id: "sword_shield", label: "⚔️ Talwar & Dhal (కత్తి & డాలు)", icon: Shield },
-            { id: "dual_sticks", label: "🥢 Jodi Karra (జోడి కర్ర)", icon: Sword },
+            { id: "staff", label: "🎋 Bamboo Staff (కర్ర)", shortLabel: "🎋 Staff", icon: Zap },
+            { id: "sword_shield", label: "⚔️ Talwar & Dhal (కత్తి & డాలు)", shortLabel: "⚔️ Talwar", icon: Shield },
+            { id: "dual_sticks", label: "🥢 Jodi Karra (జోడి కర్ర)", shortLabel: "🥢 Jodi Karra", icon: Sword },
           ].map((w) => (
             <button
               key={w.id}
               onClick={() => handleSelectWeapon(w.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold tracking-wide transition-all flex items-center gap-1.5 ${activeWeapon === w.id
-                ? "bg-gradient-to-r from-[#DC2626] to-[#EF4444] text-white shadow-md shadow-[#DC2626]/30 scale-105"
-                : "bg-stone-100/80 hover:bg-stone-200/70 text-stone-700"
-                }`}
+              className={`px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold tracking-wide transition-all whitespace-nowrap flex items-center gap-1 shrink-0 ${
+                activeWeapon === w.id
+                  ? "bg-gradient-to-r from-[#DC2626] to-[#EF4444] text-white shadow-sm shadow-[#DC2626]/30 scale-[1.02]"
+                  : "bg-stone-100/90 hover:bg-stone-200/70 text-stone-700"
+              }`}
             >
-              <span>{w.label}</span>
+              <span className="hidden sm:inline">{w.label}</span>
+              <span className="sm:hidden">{w.shortLabel}</span>
             </button>
           ))}
 
           {/* Quick Controls: Play/Pause, Speed, Sound */}
-          <div className="flex items-center gap-1 border-l border-stone-200 pl-2 ml-1">
+          <div className="flex items-center gap-0.5 sm:gap-1 border-l border-stone-200 pl-1 sm:pl-2 ml-0.5 shrink-0">
             <button
               onClick={() => setIsPlaying(!isPlaying)}
               title={isPlaying ? "Pause Stunt" : "Play Stunt"}
-              className="p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700"
+              className="p-1 sm:p-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700"
             >
-              {isPlaying ? <Pause className="w-3.5 h-3.5 text-amber-700" /> : <Play className="w-3.5 h-3.5 text-emerald-600" />}
+              {isPlaying ? <Pause className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-700" /> : <Play className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-600" />}
             </button>
 
             <button
@@ -767,7 +811,7 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
                 playWoodClick();
               }}
               title="Toggle Speed"
-              className="px-2 py-1 rounded-lg bg-stone-100 hover:bg-stone-200 text-[11px] font-bold text-amber-800"
+              className="px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-lg bg-stone-100 hover:bg-stone-200 text-[10px] sm:text-[11px] font-bold text-amber-800"
             >
               {speed}x
             </button>
@@ -775,19 +819,20 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
             <button
               onClick={toggleSound}
               title={soundEnabled ? "Martial Sound Enabled" : "Enable Sound"}
-              className={`p-1.5 rounded-lg border transition-all ${soundEnabled
-                ? "bg-[#DC2626]/10 border-[#DC2626] text-[#DC2626]"
-                : "bg-stone-100 border-stone-200 text-stone-500 hover:text-stone-800"
-                }`}
+              className={`p-1 sm:p-1.5 rounded-lg border transition-all ${
+                soundEnabled
+                  ? "bg-[#DC2626]/10 border-[#DC2626] text-[#DC2626]"
+                  : "bg-stone-100 border-stone-200 text-stone-500 hover:text-stone-800"
+              }`}
             >
-              {soundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+              {soundEnabled ? <Volume2 className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> : <VolumeX className="w-3 h-3 sm:w-3.5 sm:h-3.5" />}
             </button>
           </div>
         </div>
 
-        {/* Row 2: Stunt Selector Pills for the active weapon */}
-        <div className="pointer-events-auto bg-white/90 backdrop-blur-xl border border-amber-200/70 rounded-xl p-1 shadow-md flex flex-wrap items-center justify-center gap-1">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 px-2 font-serif hidden md:inline-flex items-center gap-1">
+        {/* Row 2: Stunt Selector Pills (Clean Single Row / Horizontal Scroll) */}
+        <div className="pointer-events-auto bg-white/92 backdrop-blur-md border border-amber-200/80 rounded-xl p-0.5 sm:p-1 shadow-sm flex items-center justify-center gap-1 max-w-full overflow-x-auto no-scrollbar">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 px-1.5 font-serif hidden md:inline-flex items-center gap-1 shrink-0">
             <Flame className="w-3 h-3 text-[#DC2626]" />
             <span>Action:</span>
           </span>
@@ -798,19 +843,21 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
               <button
                 key={stKey}
                 onClick={() => handleSelectStunt(stKey)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all flex items-center gap-1 ${activeStunt === stKey
-                  ? "bg-amber-100/90 text-amber-900 border border-amber-400 font-bold shadow-sm"
-                  : "bg-stone-100/70 hover:bg-amber-50 text-stone-700 border border-transparent"
-                  }`}
+                className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[10px] sm:text-[11px] font-bold uppercase tracking-wider transition-all whitespace-nowrap flex items-center gap-1 shrink-0 ${
+                  activeStunt === stKey
+                    ? "bg-amber-100/90 text-amber-900 border border-amber-400 font-bold shadow-xs"
+                    : "bg-stone-100/70 hover:bg-amber-50 text-stone-700 border border-transparent"
+                }`}
               >
-                <span>{st.name}</span>
+                <span className="hidden sm:inline">{st.name}</span>
+                <span className="sm:hidden">{st.mobileName || st.name}</span>
               </button>
             ))}
         </div>
 
         {/* Orbit Drag Hint */}
-        <p className="text-[10px] sm:text-[11px] text-stone-600 font-medium tracking-wide flex items-center gap-1.5">
-          <span>🖱️ Click & Drag to Rotate 360° • Touch to spin warrior in temple courtyard</span>
+        <p className="text-[9px] sm:text-[11px] text-stone-500 font-medium tracking-wide flex items-center gap-1 opacity-80">
+          <span>👆 Drag to rotate 360° • Touch to spin</span>
         </p>
       </div>
     </div>

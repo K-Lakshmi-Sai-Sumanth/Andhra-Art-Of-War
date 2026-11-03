@@ -153,7 +153,7 @@ export default function HomePage() {
       </section>
 
       {/* 2. FULL-WIDTH 3D INTERACTIVE MARTIAL ARENA (Next, Unobstructed, Clear View) */}
-      <section className="relative w-full h-[640px] sm:h-[720px] lg:h-[820px] overflow-hidden bg-[#F6F2EB] border-b border-amber-200">
+      <section className="relative w-full h-[680px] sm:h-[720px] lg:h-[820px] overflow-hidden bg-[#F6F2EB] border-b border-amber-200">
         <WarriorHero3D />
       </section>
 
@@ -371,7 +371,7 @@ export default function HomePage() {
             </Link>
 
             <a
-              href="https://wa.me/919440128934?text=Namaskaram%2C%20I%20want%20to%20inquire%20about%20Karrasamu%20classes."
+              href="https://wa.me/919553000201?text=Namaskaram%2C%20I%20want%20to%20inquire%20about%20Karrasamu%20classes."
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-4 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-widest bg-[#25D366]/15 border border-[#25D366]/40 text-[#15803d] hover:bg-[#25D366] hover:text-white transition-all flex items-center gap-2 shadow-sm"
