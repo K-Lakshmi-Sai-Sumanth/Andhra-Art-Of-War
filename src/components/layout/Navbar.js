@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Volume2, VolumeX, Globe, Shield, Sparkles } from "lucide-react";
+import { Menu, X, Volume2, VolumeX, Globe } from "lucide-react";
 import { useSound } from "./SoundContext";
 import { useLanguage } from "./LanguageContext";
 
@@ -60,6 +60,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={() => playBell(528, 0.4)}
                 className={`relative px-3.5 py-2 rounded-xl text-xs tracking-wider uppercase font-bold transition-all ${isActive
                   ? "text-[#DC2626] bg-amber-50/90 border border-amber-300/80 shadow-sm"
                   : "text-stone-700 hover:text-stone-900 hover:bg-stone-100/70"
@@ -76,10 +77,10 @@ export default function Navbar() {
 
         {/* Action Controls & CTA */}
         <div className="hidden sm:flex items-center gap-3">
-          {/* Sound FX Toggle */}
+          {/* Sound FX Toggle Button */}
           <button
             onClick={toggleSound}
-            title={soundEnabled ? "Martial Sound Enabled" : "Enable Martial Sound FX"}
+            title={soundEnabled ? "Martial Sound Enabled (Click to Mute)" : "Enable Martial Sound FX"}
             className={`p-2.5 rounded-xl border transition-all ${soundEnabled
               ? "bg-amber-100/90 border-amber-400 text-amber-800 shadow-sm"
               : "bg-stone-100 border-stone-200 text-stone-500 hover:text-stone-800"
@@ -98,47 +99,62 @@ export default function Navbar() {
             <span>{isTelugu ? "EN" : "తెలుగు"}</span>
           </button>
 
-          {/* Enroll CTA */}
+          {/* Enroll CTA Button */}
           <Link
             href="/contact"
             onClick={() => playBell(600, 0.6)}
-            className="px-5 py-2.5 rounded-xl text-xs font-serif font-black tracking-widest uppercase bg-gradient-to-r from-[#DC2626] via-[#E11D48] to-[#DC2626] hover:opacity-90 text-white shadow-md shadow-[#DC2626]/25 hover:scale-105 transition-all border border-amber-400/40"
+            className="relative inline-flex items-center justify-center px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-widest text-white overflow-hidden shadow-md shadow-[#DC2626]/25 transition-all bg-gradient-to-r from-[#DC2626] via-[#E11D48] to-[#DC2626] hover:opacity-95 hover:scale-[1.02]"
           >
-            {t("nav.enroll", "Enroll Now")}
+            <span>{t("nav.enroll", "Enroll Now")}</span>
           </Link>
         </div>
 
-        {/* Mobile Hamburger Button */}
-        <div className="flex sm:hidden items-center gap-2">
+        {/* Mobile Hamburger & Controls */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <button
+            onClick={toggleSound}
+            className={`p-1.5 rounded-lg border text-xs ${soundEnabled
+              ? "bg-amber-100 border-amber-400 text-amber-800"
+              : "bg-stone-100 border-stone-200 text-stone-600"
+              }`}
+            title="Toggle Sound"
+          >
+            {soundEnabled ? <Volume2 className="w-4 h-4 text-amber-700" /> : <VolumeX className="w-4 h-4" />}
+          </button>
+
           <button
             onClick={toggleLanguage}
-            className="px-2.5 py-1.5 rounded-lg border border-amber-300 text-xs text-amber-800 font-bold bg-amber-50"
+            className="px-2.5 py-1.5 rounded-lg border border-amber-300 bg-amber-50 text-[11px] font-bold text-stone-800 shadow-sm"
           >
-            {isTelugu ? "EN" : "తె"}
+            {isTelugu ? "EN" : "తెలుగు"}
           </button>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl bg-stone-100 border border-stone-200 text-stone-800"
+            className="p-2 rounded-xl border border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+            aria-label="Toggle Menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Drawer Navigation Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#FAF8F5] border-b border-amber-200 px-4 pt-3 pb-6 space-y-2 shadow-lg">
+        <div className="lg:hidden border-t border-amber-200/80 bg-white/98 backdrop-blur-xl px-4 py-6 space-y-3 shadow-xl">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-4 py-2.5 rounded-xl text-sm font-bold tracking-wider uppercase ${isActive
-                  ? "bg-[#DC2626] text-white font-black"
-                  : "text-stone-700 hover:bg-stone-100 hover:text-stone-900"
+                onClick={() => {
+                  playBell(528, 0.4);
+                  setMobileMenuOpen(false);
+                }}
+                className={`block px-4 py-2.5 rounded-xl text-sm font-bold uppercase tracking-wider ${isActive
+                  ? "bg-amber-100/80 text-[#DC2626] border border-amber-300"
+                  : "text-stone-700 hover:bg-stone-50"
                   }`}
               >
                 {link.label}
@@ -157,7 +173,10 @@ export default function Navbar() {
 
             <Link
               href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                playBell(600, 0.6);
+                setMobileMenuOpen(false);
+              }}
               className="flex-1 text-center py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-[#DC2626] to-[#EF4444] text-white"
             >
               {t("nav.enroll", "Enroll Now")}

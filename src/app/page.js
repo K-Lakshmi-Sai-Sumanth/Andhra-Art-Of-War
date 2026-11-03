@@ -152,8 +152,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. FULL-WIDTH 3D INTERACTIVE MARTIAL ARENA (Next, Unobstructed, Clear View) */}
-      <section className="relative w-full h-[680px] sm:h-[720px] lg:h-[820px] overflow-hidden bg-[#F6F2EB] border-b border-amber-200">
+      {/* 2. FULL-WIDTH 3D INTERACTIVE MARTIAL ARENA (Mobile-Optimized Height & Native Scroll Friendly) */}
+      <section className="relative w-full h-[480px] sm:h-[620px] lg:h-[780px] overflow-hidden bg-[#F6F2EB] border-b border-amber-200">
         <WarriorHero3D />
       </section>
 

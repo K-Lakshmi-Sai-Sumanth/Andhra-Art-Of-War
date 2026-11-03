@@ -515,7 +515,7 @@ export default function WeaponViewer3D({ compact = false }) {
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleMouseUp}
-        className={`relative w-full cursor-grab active:cursor-grabbing select-none bg-[#F6F2EB] rounded-xl overflow-hidden my-3 ${compact ? "h-[320px] md:h-[400px]" : "h-[420px] md:h-[520px]"
+        className={`relative w-full cursor-grab active:cursor-grabbing select-none bg-[#F6F2EB] rounded-xl overflow-hidden my-3 touch-pan-y ${compact ? "h-[320px] md:h-[400px]" : "h-[420px] md:h-[520px]"
           }`}
       >
         {!isLoaded && (

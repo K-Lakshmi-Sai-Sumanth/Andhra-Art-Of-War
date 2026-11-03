@@ -31,14 +31,14 @@ export function SoundProvider({ children }) {
     setSoundEnabled((prev) => {
       const next = !prev;
       if (next) {
-        // play gentle confirmation chime
+        // Play gentle confirmation chime
         playBell(660, 0.4);
       }
       return next;
     });
   };
 
-  // Synthesize martial bamboo whoosh sound
+  // Synthesize authentic martial bamboo whoosh sound
   const playWhoosh = (intensity = 1.0) => {
     if (!soundEnabled) return;
     initAudio();
@@ -134,7 +134,7 @@ export function SoundProvider({ children }) {
 
       osc.type = "triangle";
       osc.frequency.setValueAtTime(420, now);
-      osc.frequency.exponentialRampToValueAtTime(90, now + 0.05);
+      osc.exponentialRampToValueAtTime(90, now + 0.05);
 
       gain.gain.setValueAtTime(0.25, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);

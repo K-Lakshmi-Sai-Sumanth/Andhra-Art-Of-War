@@ -38,6 +38,8 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
   const warriorRef = useRef({});
   const isDraggingRef = useRef(false);
   const prevMousePos = useRef({ x: 0, y: 0 });
+  const startTouchPos = useRef({ x: 0, y: 0 });
+  const touchActionRef = useRef(null); // 'scroll' | 'rotate' | null
 
   // Mutable refs for animation loop
   const activeWeaponRef = useRef(activeWeapon);
@@ -46,6 +48,7 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
   const speedRef = useRef(speed);
   const soundEnabledRef = useRef(soundEnabled);
   const playWhooshRef = useRef(playWhoosh);
+  const lastSoundTime = useRef(0);
 
   useEffect(() => {
     activeWeaponRef.current = activeWeapon;
@@ -55,9 +58,6 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
     soundEnabledRef.current = soundEnabled;
     playWhooshRef.current = playWhoosh;
   }, [activeWeapon, activeStunt, isPlaying, speed, soundEnabled, playWhoosh]);
-
-  // Sound throttler ref
-  const lastSoundTime = useRef(0);
 
   // Stunt Descriptions for the HUD
   const stuntDetails = {
@@ -539,13 +539,12 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
             shockwaveRing
           );
 
-          // Sound triggers synced with stunt impact / swings
+          // Martial Whoosh Sound Effects synced with movements
           if (soundEnabledRef.current && now - lastSoundTime.current > 420 / speedRef.current) {
             if (activeStuntRef.current === "shield_bash") {
               playWhooshRef.current(1.3);
             } else if (
               activeStuntRef.current === "air_tornado" ||
-              activeStuntRef.current === "pole_vault" ||
               activeStuntRef.current === "infinity_spin" ||
               activeStuntRef.current === "dual_flurry"
             ) {
@@ -686,11 +685,15 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
     }
   };
 
-  // Pointer Orbit Drag Controls (handles mouse and touch seamlessly)
+  // Pointer Orbit Drag Controls (handles mouse and touch with native vertical scroll protection)
   const handlePointerDown = (e) => {
     isDraggingRef.current = true;
     prevMousePos.current = { x: e.clientX, y: e.clientY };
-    if (e.target && e.target.setPointerCapture) {
+    startTouchPos.current = { x: e.clientX, y: e.clientY };
+    touchActionRef.current = null;
+
+    // Only capture pointer for mouse. Never for touch to prevent trapping mobile page scroll.
+    if (e.pointerType === "mouse" && e.target && e.target.setPointerCapture) {
       try {
         e.target.setPointerCapture(e.pointerId);
       } catch (err) { }
@@ -700,13 +703,37 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
   const handlePointerMove = (e) => {
     if (!isDraggingRef.current || !warriorRef.current.root) return;
     const deltaX = e.clientX - prevMousePos.current.x;
-    warriorRef.current.root.rotation.y += deltaX * 0.012;
+    const deltaY = e.clientY - prevMousePos.current.y;
+
+    if (e.pointerType === "touch") {
+      const totalDx = Math.abs(e.clientX - startTouchPos.current.x);
+      const totalDy = Math.abs(e.clientY - startTouchPos.current.y);
+
+      // Determine intent on first movement beyond threshold
+      if (!touchActionRef.current && (totalDx > 6 || totalDy > 6)) {
+        touchActionRef.current = totalDy > totalDx ? "scroll" : "rotate";
+      }
+
+      // If user is swiping vertically to scroll the page, do NOT rotate 3D model
+      if (touchActionRef.current === "scroll") {
+        return;
+      }
+
+      // If user is swiping sideways, smoothly rotate the warrior 360
+      if (touchActionRef.current === "rotate") {
+        warriorRef.current.root.rotation.y += deltaX * 0.012;
+      }
+    } else {
+      // Desktop mouse drag: rotate 360 smoothly
+      warriorRef.current.root.rotation.y += deltaX * 0.012;
+    }
     prevMousePos.current = { x: e.clientX, y: e.clientY };
   };
 
   const handlePointerUp = (e) => {
     isDraggingRef.current = false;
-    if (e.target && e.target.releasePointerCapture) {
+    touchActionRef.current = null;
+    if (e.pointerType === "mouse" && e.target && e.target.releasePointerCapture) {
       try {
         e.target.releasePointerCapture(e.pointerId);
       } catch (err) { }
@@ -716,15 +743,15 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
   const activeStuntInfo = stuntDetails[activeStunt] || stuntDetails.air_tornado;
 
   return (
-    <div className="relative w-full h-full min-h-[580px] sm:min-h-[640px] lg:min-h-[760px] overflow-hidden flex flex-col justify-between select-none bg-[#F6F2EB]">
-      {/* 3D WebGL Canvas Layer (100% Unobstructed Temple View) */}
+    <div className="relative w-full h-full min-h-[460px] sm:min-h-[600px] lg:min-h-[740px] overflow-hidden flex flex-col justify-between select-none bg-[#F6F2EB]">
+      {/* 3D WebGL Canvas Layer (touch-pan-y allows smooth native mobile vertical scrolling) */}
       <div
         ref={mountRef}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing z-0 touch-none"
+        className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing z-0 touch-pan-y"
       />
 
       {/* TOP FLOATING STATUS BAR: Ultra-Compact Single Row (Never overlaps warrior head) */}
@@ -794,7 +821,7 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
             </button>
           ))}
 
-          {/* Quick Controls: Play/Pause, Speed, Sound */}
+          {/* Quick Controls: Play/Pause, Speed, 45° Rotate View */}
           <div className="flex items-center gap-0.5 sm:gap-1 border-l border-stone-200 pl-1 sm:pl-2 ml-0.5 shrink-0">
             <button
               onClick={() => setIsPlaying(!isPlaying)}
@@ -817,8 +844,21 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
             </button>
 
             <button
+              onClick={() => {
+                if (warriorRef.current && warriorRef.current.root) {
+                  warriorRef.current.root.rotation.y += Math.PI / 4;
+                }
+              }}
+              title="Rotate View 45°"
+              className="p-1 sm:p-1.5 rounded-lg bg-stone-100 hover:bg-amber-100 text-stone-700 hover:text-amber-900 border border-stone-200 transition-all flex items-center gap-1"
+            >
+              <RotateCw className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+            </button>
+
+            {/* Audio FX Toggle Button */}
+            <button
               onClick={toggleSound}
-              title={soundEnabled ? "Martial Sound Enabled" : "Enable Sound"}
+              title={soundEnabled ? "Martial Sound Enabled (Click to Mute)" : "Enable Sound FX"}
               className={`p-1 sm:p-1.5 rounded-lg border transition-all ${
                 soundEnabled
                   ? "bg-[#DC2626]/10 border-[#DC2626] text-[#DC2626]"
@@ -855,9 +895,9 @@ export default function WarriorHero3D({ onWeaponChange, compact = false }) {
             ))}
         </div>
 
-        {/* Orbit Drag Hint */}
+        {/* Orbit Drag & Mobile Native Scroll Guidance */}
         <p className="text-[9px] sm:text-[11px] text-stone-500 font-medium tracking-wide flex items-center gap-1 opacity-80">
-          <span>👆 Drag to rotate 360° • Touch to spin</span>
+          <span>↕ Swipe up/down to scroll page • ↔ Swipe sideways or drag to rotate 3D</span>
         </p>
       </div>
     </div>
